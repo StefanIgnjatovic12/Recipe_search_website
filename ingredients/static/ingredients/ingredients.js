@@ -15,7 +15,7 @@ $(document).off().on('click', '.empty', function (e) {
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 
         },
-        success: function (json) {
+        success: function () {
             console.log("success"); // another sanity check
         },
     })
@@ -30,7 +30,7 @@ function testFunction() {
             reload: 'true',
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
         },
-        success: function (json) {
+        success: function () {
             console.log('reload info trasmitted')
         }
     })

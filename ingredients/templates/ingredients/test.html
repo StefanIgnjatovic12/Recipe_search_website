@@ -1,10 +1,15 @@
 
 {% extends "recipe_site/base.html" %}
 {% load static %}
+
 {% block content %}
 {% block extrascripts %}
     <script type="text/javascript" src="{% static 'ingredients/ingredients.js' %}"></script>
 {% endblock extrascripts %}
+
+<form action="{% url 'apitest' %}" method="get">
+ <input type="submit" class="btn" value="Click" name="mybtn">
+</form>
 
     {% for ingredient in ingredients %}
         <article class="media content-section">

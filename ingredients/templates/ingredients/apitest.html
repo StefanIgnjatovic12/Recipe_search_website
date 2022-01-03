@@ -1,0 +1,21 @@
+
+{% extends "recipe_site/base.html" %}
+{% load static %}
+{% block content %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'ingredients/ingredients.js' %}"></script>
+{% endblock extrascripts %}
+
+    {% for recipe in recipes %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+            </div>
+              <p class="article-content">{{ recipe.title }}</p>
+               <p class="article-content">{{ recipe.image }}</p>
+              <p class="article-content">{{  recipe.usedIngredients.0.original }}</p>
+          </div>
+        </article>
+
+    {% endfor %}
+{% endblock content %}
