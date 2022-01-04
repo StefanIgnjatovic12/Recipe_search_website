@@ -11,17 +11,18 @@
  <input type="submit" class="btn" value="Click" name="mybtn">
 </form>
 
-    {% for ingredient in ingredients %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <h2>{{ ingredient.group }}</h2>
-            </div>
-              <button id="{{ ingredient.pk }}" class="empty select-button-gray" value="{{ ingredient.food_name }}">{{ ingredient.food_name }}</button>
-          </div>
-        </article>
+        {% for ingredient in ingredients %}
+            <article class="media content-section">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <h2>{{ foo}}</h2>
+                </div>
+                  <button id="{{ ingredient.pk }}" class="empty select-button-gray" value="{{ ingredient.food_name }}">{{ ingredient.food_name }}</button>
+              </div>
+            </article>
 
-    {% endfor %}
+        {% endfor %}
+
 
 {#    {% if is_paginated %}#}
 {#if our current page (page_object) has a previous page#}

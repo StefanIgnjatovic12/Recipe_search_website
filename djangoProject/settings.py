@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'recipe_site.apps.RecipeSiteConfig',
     'ingredients.apps.IngredientsConfig',
+    'rest_framework'
 
 ]
 

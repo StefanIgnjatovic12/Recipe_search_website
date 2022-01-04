@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import JsonResponse
 from django.views.generic import (ListView)
-from ingredients.models.modelsIngredients import Ingredients
+from ingredients.models.modelsIngredients import Ingredients, FoodGroups
 from ingredients.models.modelSelected import SelectedIngredients
 from .forms import IngredientButton
 from django.views.decorators.csrf import csrf_exempt
@@ -12,8 +12,12 @@ import json
 
 @csrf_exempt
 def ingredients_list_view(request):
-    ingredients = Ingredients.objects.all()
-    return render(request, 'ingredients/test.html', {'ingredients': ingredients})
+    context = {
+        'ingredients':Ingredients.objects.all(),
+        'groups': FoodGroups.objects.all()
+    }
+
+    return render(request, 'ingredients/test.html', context)
 
 
 # class IngredientsListView(ListView):
