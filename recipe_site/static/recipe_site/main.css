@@ -110,5 +110,9 @@ a.article-title:hover {
 }
 
 .empty {
+    margin: 5px;
+}
 
+.ingredients-header {
+   text-align: center;
 }

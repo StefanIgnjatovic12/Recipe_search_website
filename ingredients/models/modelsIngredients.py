@@ -12,10 +12,13 @@ class FoodGroups(models.Model):
 class Ingredients (models.Model):
     # group = models.CharField(max_length=500)
     food_name = models.CharField(max_length=500)
-    foodgroup = models.ForeignKey(FoodGroups, on_delete=models.CASCADE, null=True, related_name='ingredients')
+    foodgroup = models.ForeignKey(FoodGroups, on_delete=models.CASCADE, null=True, related_name='ing')
 
     def __str__(self):
         return str(self.food_name)
 
-
+class Recipe (models.Model):
+    ingredients = models.TextField(max_length=500)
+    link = models.URLField()
+    img = models.URLField()
 
