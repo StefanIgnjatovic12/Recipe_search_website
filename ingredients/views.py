@@ -102,29 +102,33 @@ def search_for_recipe(request):
             protein = recipe2['nutrition']['nutrients'][8]['amount']
             sodium = recipe2['nutrition']['nutrients'][7]['amount']
             sugar = recipe2['nutrition']['nutrients'][5]['amount']
-            dict = {
+            # creates list of dictionaries that hold the data for each recipe the was returned
+            sorted_query_data = [{
                 'amount': [d['amount'] for d in recipe2['nutrition']['ingredients']],
                 'unit': [d['unit'] for d in recipe2['nutrition']['ingredients']],
                 'name': [d['name'] for d in recipe2['nutrition']['ingredients']]
 
-            }
-
-            for n in range(len(dict['amount'])):
-                lst.append(f"{dict['amount'][n]} {dict['unit'][n]} of {dict['name'][n]}")
-            i = DisplayRecipe.objects.create(
-                title=title,
-                link=link,
-                img=img,
-                calories=calories,
-                fat=fat,
-                saturated_fat=saturated_fat,
-                carbs=carbs,
-                protein=protein,
-                sodium=sodium,
-                sugar=sugar,
-                ingredients=', '.join(lst)
-            )
-            i.save()
+            }]
+            # loops through the gdata and creates an f string with the amount, unit and name of the ingredients corresponding to each recipe then appends them to a list
+            for number in range(len(sorted_query_data)):
+                for n in range(len(sorted_query_data[number]['amount'])):
+                    lst.append(f"{sorted_query_data[number]['amount'][n]} {sorted_query_data[number]['unit'][n]} of {sorted_query_data[number]['name'][n]}")
+                i = DisplayRecipe.objects.create(
+                    title=title,
+                    link=link,
+                    img=img,
+                    calories=calories,
+                    fat=fat,
+                    saturated_fat=saturated_fat,
+                    carbs=carbs,
+                    protein=protein,
+                    sodium=sodium,
+                    sugar=sugar,
+                    ingredients=", ".join(lst)
+                )
+                i.save()
+                # clear the list after each loop corresponding to 1 recipe otherwise the ingredients for the next recipe are added to those of the first
+                lst.clear()
         print(DisplayRecipe.objects.all())
         return render(request, 'ingredients/apitest.html', {'recipes': recipes2})
     return render(request, 'ingredients/apitest.html')

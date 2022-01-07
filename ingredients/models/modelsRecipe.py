@@ -14,6 +14,7 @@ class DisplayRecipe (models.Model):
     sugar = models.TextField(max_length=500)
 
 class FavoriteRecipe (models.Model):
+    # make it so that it inherits from display recipe instead of this garbage
     title = models.TextField(max_length=500)
     ingredients = models.TextField(max_length=500)
     link = models.URLField()

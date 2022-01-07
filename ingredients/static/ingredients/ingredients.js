@@ -40,12 +40,14 @@ function testFunction() {
 // ------------------------------------------------------------------------------------------------------------------------
 $(document).ready(function(){
   $( ".form-inline" ).each(function(){
-      $(this).find(".empty").eq(9).after('<button class="select-button-green hidecontent">Show more</button>');//add a unique id to link
       $(this).find(".empty:gt(8)" ).addClass('hide');
+      $(this).find(".empty").eq(9).after('<button class="select-button-green hidecontent">Show more</button>');//add a unique id to link
+
   });
 });
 
-$(document).on('click','.hidecontent, .strelica',function(e){
+
+$(document).on('click','.hidecontent',function(e){
   e.preventDefault();
   //removes the hide class from the 9 buttons
   $(this).closest('.form-inline').find('.hide').removeClass('hide');
@@ -54,12 +56,16 @@ $(document).on('click','.hidecontent, .strelica',function(e){
 });
 // ------------------------------------------------------------------------------------------------------------------------
 
+
 // changing arrow from up to down
-// $(document).on('click', '.strelica', function (e) {
-//     $(this).toggleClass('triangle_down triangle_up')
-//     e.preventDefault();
-//
-// })
+$(document).on('click', '.arrow', function (e) {
+    $(this).closest('.media-body').find('.hide').not('.hidecontent').toggleClass('hide test');
+    $(this).toggleClass('triangle_down triangle_up')
+    $(this).closest('.media-body').find('.hidecontent').toggleClass('hide')
+
+    // e.preventDefault();
+
+})
 
 //show more function on arrow click
 // $(document).on('click', '#strelica', function (e) {
