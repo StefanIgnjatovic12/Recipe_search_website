@@ -17,8 +17,3 @@ class Ingredients (models.Model):
     def __str__(self):
         return str(self.food_name)
 
-class Recipe (models.Model):
-    ingredients = models.TextField(max_length=500)
-    link = models.URLField()
-    img = models.URLField()
-

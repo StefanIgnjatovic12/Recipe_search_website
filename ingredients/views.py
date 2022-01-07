@@ -90,25 +90,41 @@ def search_for_recipe(request):
 
         # generate recipes objects using the json data upon API call
         obj = DisplayRecipe()
+        lst=[]
         for recipe2 in recipes2:
-            obj.title = recipe2['title']
-            obj.link = recipe2['sourceUrl']
-            obj.img = recipe2['image']
-            obj.calories = recipe2['nutrition']['nutrients'][0]['amount']
-            obj.fat = recipe2['nutrition']['nutrients'][1]['amount']
-            obj.saturated_fat = recipe2['nutrition']['nutrients'][2]['amount']
-            obj.carbs = recipe2['nutrition']['nutrients'][3]['amount']
-            obj.protein = recipe2['nutrition']['nutrients'][8]['amount']
-            obj.sodium = recipe2['nutrition']['nutrients'][7]['amount']
-            obj.sugar = recipe2['nutrition']['nutrients'][5]['amount']
-            # obj.ingredients = (
-            #     for num in range(len(recipe2['nutrition']['ingredients'])):
-            #         for ingredient in recipe2['nutrition']['ingredients'][num]:
-            #
-            # )
-            print(obj.title)
-            obj.save()
-            print(DisplayRecipe.objects.all())
+            title = recipe2['title']
+            link = recipe2['sourceUrl']
+            img = recipe2['image']
+            calories = recipe2['nutrition']['nutrients'][0]['amount']
+            fat = recipe2['nutrition']['nutrients'][1]['amount']
+            saturated_fat = recipe2['nutrition']['nutrients'][2]['amount']
+            carbs = recipe2['nutrition']['nutrients'][3]['amount']
+            protein = recipe2['nutrition']['nutrients'][8]['amount']
+            sodium = recipe2['nutrition']['nutrients'][7]['amount']
+            sugar = recipe2['nutrition']['nutrients'][5]['amount']
+            dict = {
+                'amount': [d['amount'] for d in recipe2['nutrition']['ingredients']],
+                'unit': [d['unit'] for d in recipe2['nutrition']['ingredients']],
+                'name': [d['name'] for d in recipe2['nutrition']['ingredients']]
+
+            }
+
+            for n in range(len(dict['amount'])):
+                lst.append(f"{dict['amount'][n]} {dict['unit'][n]} of {dict['name'][n]}")
+            i = DisplayRecipe.objects.create(
+                title=title,
+                link=link,
+                img=img,
+                calories=calories,
+                fat=fat,
+                saturated_fat=saturated_fat,
+                carbs=carbs,
+                protein=protein,
+                sodium=sodium,
+                sugar=sugar,
+                ingredients=', '.join(lst)
+            )
+            i.save()
         print(DisplayRecipe.objects.all())
         return render(request, 'ingredients/apitest.html', {'recipes': recipes2})
     return render(request, 'ingredients/apitest.html')

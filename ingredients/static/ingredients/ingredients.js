@@ -35,3 +35,33 @@ function testFunction() {
         }
     })
 }
+
+//show more button that disappers after you click, need the arrow thing that also does show more but can do show less too
+// ------------------------------------------------------------------------------------------------------------------------
+$(document).ready(function(){
+  $( ".form-inline" ).each(function(){
+      $(this).find(".empty").eq(9).after('<button class="select-button-green hidecontent">Show more</button>');//add a unique id to link
+      $(this).find(".empty:gt(8)" ).addClass('hide');
+  });
+});
+
+$(document).on('click','.hidecontent, .strelica',function(e){
+  e.preventDefault();
+  //removes the hide class from the 9 buttons
+  $(this).closest('.form-inline').find('.hide').removeClass('hide');
+     //adds the hide class to the show more button
+	 $(this).addClass('hide');
+});
+// ------------------------------------------------------------------------------------------------------------------------
+
+// changing arrow from up to down
+// $(document).on('click', '.strelica', function (e) {
+//     $(this).toggleClass('triangle_down triangle_up')
+//     e.preventDefault();
+//
+// })
+
+//show more function on arrow click
+// $(document).on('click', '#strelica', function (e) {
+//     $(this).closest('.form-inline').find('.hide').removeClass('hide');
+// }

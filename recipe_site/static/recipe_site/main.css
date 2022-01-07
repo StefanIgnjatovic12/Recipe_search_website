@@ -116,3 +116,36 @@ a.article-title:hover {
 .ingredients-header {
    text-align: center;
 }
+
+.hide{
+    display: none;
+}
+
+.triangle_down {
+  position: relative;
+  top: -48px;
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 0.2em solid black;
+  border-top: 0.2em solid black;
+  transform: rotate(135deg);
+  margin-right: 0.5em;
+  margin-left: 28.0em;
+
+
+}
+ .triangle_up {
+   position: relative;
+   top: -48px;
+   content: "";
+   display: inline-block;
+   width: 10px;
+   height: 10px;
+   border-right: 0.2em solid black;
+   border-top: 0.2em solid black;
+   transform: rotate(-45deg);
+   margin-right: 0.5em;
+   margin-left: 28.0em;
+ }

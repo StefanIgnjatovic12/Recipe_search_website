@@ -6,9 +6,9 @@
         <script type="text/javascript" src="{% static 'ingredients/ingredients.js' %}"></script>
     {% endblock extrascripts %}
 
-{#    <form action="{% url 'apitest' %}" method="get">#}
-{#        <input type="submit" class="btn" value="Click" name="mybtn">#}
-{#    </form>#}
+    <form action="{% url 'apitest' %}" method="get">
+        <input type="submit" class="btn" value="Click" name="mybtn">
+    </form>
 
     {##}
     {#    loops through the food groups#}
@@ -21,9 +21,10 @@
 
                 <div class="article-metadata">
                     <h2 class="ingredients-header">{{ fg }}</h2>
+                    <span class="strelica triangle_down"></span>
                 </div>
             <div class="col-md-10 offset-md-1">
-            <div class="form-inline">
+            <div class="form-inline" id="{{ fg.pk }}">
                 {% for individual_ingredient in fg.ing.all %}
 
                     <button id="{{ individual_ingredient.pk }}" class="empty select-button-gray"
