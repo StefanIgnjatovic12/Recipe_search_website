@@ -130,6 +130,6 @@ def search_for_recipe(request):
                 # clear the list after each loop corresponding to 1 recipe otherwise the ingredients for the next recipe are added to those of the firstru
                 lst.clear()
         print(DisplayRecipe.objects.all())
-        return render(request, 'ingredients/apitest.html', {'recipes': recipes2})
-    return render(request, 'ingredients/apitest.html')
+        return render(request, 'ingredients/test.html', {'recipes': DisplayRecipe.objects.all()})
+    return render(request, 'ingredients/test.html')
 
