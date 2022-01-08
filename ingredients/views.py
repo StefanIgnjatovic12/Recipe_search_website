@@ -21,11 +21,7 @@ def ingredients_list_view(request):
     return render(request, 'ingredients/test.html', context)
 
 
-# class IngredientsListView(ListView):
-#     model = Ingredients
-#     template_name = 'ingredients/test.html'
-#     context_object_name = 'ingredients'
-#     paginate_by = 5
+
 @csrf_exempt
 def post(request):
     obj = SelectedIngredients()

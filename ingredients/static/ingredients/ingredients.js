@@ -21,6 +21,11 @@ $(document).off().on('click', '.empty', function (e) {
     })
 })
 
+// for submit button to display recipe on same page
+$(document).on('click', '.btn-primary', function (e) {
+    e.preventDefault();
+
+})
 
 function testFunction() {
     $.ajax({

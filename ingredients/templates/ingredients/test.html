@@ -23,9 +23,7 @@
             {% endif %}
 
 {#        search button for recipes, need to add an onclick so that the DisplayObjects get deleted when its clicked#}
-                <form action="{% url 'apitest' %}" method="get">
-                    <input type="submit" class="btn" value="Click" name="mybtn">
-                </form>
+        <button href="{% url 'apitest' %}" type="submit" class="btn btn-primary">Search</button>
 
 
 
