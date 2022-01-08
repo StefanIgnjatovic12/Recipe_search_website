@@ -36,7 +36,7 @@ function testFunction() {
     })
 }
 
-//show more button that disappers after you click, need the arrow thing that also does show more but can do show less too
+
 // ------------------------------------------------------------------------------------------------------------------------
 $(document).ready(function(){
   $( ".form-inline" ).each(function(){
@@ -50,7 +50,8 @@ $(document).ready(function(){
 $(document).on('click','.hidecontent',function(e){
   e.preventDefault();
   //removes the hide class from the 9 buttons
-  $(this).closest('.form-inline').find('.hide').removeClass('hide');
+  $(this).closest('.form-inline').find('.hide, .test').toggleClass('hide test');
+  $(this).closest('.media-body').find('.arrow').toggleClass('triangle_down triangle_up')
      //adds the hide class to the show more button
 	 $(this).addClass('hide');
 });
@@ -59,7 +60,7 @@ $(document).on('click','.hidecontent',function(e){
 
 // changing arrow from up to down
 $(document).on('click', '.arrow', function (e) {
-    $(this).closest('.media-body').find('.hide').not('.hidecontent').toggleClass('hide test');
+    $(this).closest('.media-body').find('.hide, .test').not('.hidecontent').toggleClass('hide test');
     $(this).toggleClass('triangle_down triangle_up')
     $(this).closest('.media-body').find('.hidecontent').toggleClass('hide')
 
@@ -67,7 +68,3 @@ $(document).on('click', '.arrow', function (e) {
 
 })
 
-//show more function on arrow click
-// $(document).on('click', '#strelica', function (e) {
-//     $(this).closest('.form-inline').find('.hide').removeClass('hide');
-// }

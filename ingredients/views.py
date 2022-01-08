@@ -127,7 +127,7 @@ def search_for_recipe(request):
                     ingredients=", ".join(lst)
                 )
                 i.save()
-                # clear the list after each loop corresponding to 1 recipe otherwise the ingredients for the next recipe are added to those of the first
+                # clear the list after each loop corresponding to 1 recipe otherwise the ingredients for the next recipe are added to those of the firstru
                 lst.clear()
         print(DisplayRecipe.objects.all())
         return render(request, 'ingredients/apitest.html', {'recipes': recipes2})

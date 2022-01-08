@@ -132,7 +132,7 @@ a.article-title:hover {
   border-top: 0.2em solid black;
   transform: rotate(135deg);
   margin-right: 0.5em;
-  margin-left: 28.0em;
+  margin-left: 0.5em;
 
 
 }
@@ -147,7 +147,7 @@ a.article-title:hover {
    border-top: 0.2em solid black;
    transform: rotate(-45deg);
    margin-right: 0.5em;
-   margin-left: 28.0em;
+   margin-left: 0.5em;
  }
 
 .test {
