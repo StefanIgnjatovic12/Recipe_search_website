@@ -5,18 +5,25 @@
 $(document).off().on('click', '.empty', function (e) {
     $(this).toggleClass('select-button-gray select-button-green')
     e.preventDefault();
-
+    var button_check
+    if ($(this).hasClass('select-button-gray')) {
+        button_check = 'gray'
+    } else if ($(this).hasClass('select-button-green')) {
+        button_check = 'green'
+    }
     $.ajax({
         type: 'POST',
         url: 'http://127.0.0.1:8000/test/select/',
         data: {
             value: $(this).val(),
             testvalue: 'check',
+            button_value: button_check,
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 
         },
         success: function () {
-            console.log("success"); // another sanity check
+            console.log("success");
+
         },
     })
 })

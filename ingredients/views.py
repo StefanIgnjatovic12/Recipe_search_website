@@ -24,7 +24,7 @@ def ingredients_list_view(request):
         params = {
             'apiKey': api_key,
             'number': 4,
-            'ingredients': ing_list
+            'ingredients': request.session['choices']
         }
 
         response = requests.get(url='https://api.spoonacular.com/recipes/findByIngredients', params=params)
@@ -106,31 +106,45 @@ def ingredients_list_view(request):
 
 @csrf_exempt
 def post(request):
-    obj = SelectedIngredients()
-
     if request.POST.get('reload') == 'true':
         print('detected reload')
-        SelectedIngredients.objects.all().delete()
-        # DisplayRecipe.objects.all().delete()
-        print(SelectedIngredients.objects.all())
+        try:
+            del request.session['choices']
+        except KeyError:
+            pass
 
-    elif request.POST.get('testvalue') == 'check':
+    if request.POST.get('testvalue') == 'check':
         id = request.POST.get('value')
 
-        try:
-            check = SelectedIngredients.objects.get(food=id)
-        except ObjectDoesNotExist:
-            check = None
+        if request.POST.get('button_value') == 'green':
 
-        if check == None:
-            obj.food = id
-            obj.save()
-            print(obj.food)
-            print(SelectedIngredients.objects.all())
+            selected_ingredients  = request.session.get('choices', [])
+            selected_ingredients.insert(len(selected_ingredients), id)
+            request.session['choices'] = selected_ingredients
 
-        elif check in SelectedIngredients.objects.all():
-            check.delete()
-            print(SelectedIngredients.objects.all())
+            print(selected_ingredients)
+
+        elif request.POST.get('button_value') == 'gray':
+
+            selected_ingredients = request.session.get('choices', [])
+            selected_ingredients.remove(id)
+            request.session['choices'] = selected_ingredients
+
+            print(selected_ingredients)
+        # try:
+        #     check = SelectedIngredients.objects.get(food=id)
+        # except ObjectDoesNotExist:
+        #     check = None
+        #
+        # if check == None:
+        #     obj.food = id
+        #     obj.save()
+        #     print(obj.food)
+        #     print(SelectedIngredients.objects.all())
+        #
+        # elif check in SelectedIngredients.objects.all():
+        #     check.delete()
+        #     print(SelectedIngredients.objects.all())
 
     return JsonResponse({'test': 'test'})
 
