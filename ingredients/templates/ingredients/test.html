@@ -9,124 +9,114 @@
 
 
 
-{#--------------------------------------ROW2-------------------------------------------------------------------------#}
-<main role="main" class="container-fluid">
-    <div class="row">
-{#--------------------------------------ROW 2 COLUMN 1 > INGREDIENTS FOR LOOP-------------------------------------------------------------------------#}
-        <div class="col-md-3 ">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-{#        search button for recipes, need to add an onclick so that the DisplayObjects get deleted when its clicked#}
-{#        <button onclick="location.href='{% url 'test' %}'" name="mybtn" type="submit" class="btn btn-primary">Search</button>#}
-
-            <form action="{% url 'test' %}" method="get">
-              <input type="submit" class="btn btn-primary" value="Click" name="mybtn">
-           </form>
-{#        {% if post_search is True %}#}
-{#        <button type="submit" class="btn test-button">Column test open</button>#}
-{#        {% endif %}#}
-            {% for fg in groups %}
-
-                <article class="media-left content-section">
-                    <div class="media-body">
-
-                        <div class="article-metadata">
-                            <h2 class="ingredients-header">{{ fg }}</h2>
-                            <span class="arrow triangle_down ml-auto"></span>
+    {#--------------------------------------ROW2-------------------------------------------------------------------------#}
+    <main role="main" class="container-fluid">
+        <div class="row">
+            {#--------------------------------------ROW 2 COLUMN 1 > INGREDIENTS FOR LOOP-------------------------------------------------------------------------#}
+            <div class="col-md-3 ">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
                         </div>
-                        <div class="col-md-10 offset-md-1">
-                            <div class="form-inline" id="{{ fg.pk }}">
+                    {% endfor %}
+                {% endif %}
 
-                                {% for individual_ingredient in fg.ing.all %}
+                {#        search button for recipes, need to add an onclick so that the DisplayObjects get deleted when its clicked#}
+                {#        <button onclick="location.href='{% url 'test' %}'" name="mybtn" type="submit" class="btn btn-primary">Search</button>#}
 
-                                    <button id="{{ individual_ingredient.pk }}" class="empty select-button-gray"
-                                            value="{{ individual_ingredient.food_name }}">{{ individual_ingredient.food_name }}</button>
-                                {% endfor %}
+{#                <form action="{% url 'test' %}" method="get">#}
+{#                    <input type="submit" class="btn btn-primary" value="Click" name="mybtn">#}
+{#                </form>#}
+                {#        {% if post_search is True %}#}
+                {#        <button type="submit" class="btn test-button">Column test open</button>#}
+                {#        {% endif %}#}
+                {% for fg in groups %}
+
+                    <article class="media-left content-section">
+                        <div class="media-body">
+
+                            <div class="article-metadata">
+                                <h2 class="ingredients-header">{{ fg }}</h2>
+                                <span class="arrow triangle_down ml-auto"></span>
+                            </div>
+                            <div class="col-md-10 offset-md-1">
+                                <div class="form-inline" id="{{ fg.pk }}">
+
+                                    {% for individual_ingredient in fg.ing.all %}
+
+                                        <button id="{{ individual_ingredient.pk }}" class="empty select-button-gray"
+                                                value="{{ individual_ingredient.food_name }}">{{ individual_ingredient.food_name }}</button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                {% endfor %}
+                {#            {% block content %}{% endblock %}#}
+                {% block extrascripts %}{% endblock %}
+            </div>
+            {#--------------------------------------ROW 2 COLUMN 2-------------------------------------------------------------------------#}
+            <div class="col-md-9">
+                {#--------------------------------------ROW 2.1-------------------------------------------------------------------------#}
+                {#--------------------------------------ROW 2.2 COLUMN 1-------------------------------------------------------------------------#}
+
+                <div class="row">
+                    {% for recipe in recipes %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="{{ recipe.img }}" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="{{recipe.link}}">{{ recipe.title }}</a>
+                                </h4>
+                                <p class="card-text">{{ recipe.ingredients }}</p>
                             </div>
                         </div>
                     </div>
-                </article>
-
-            {% endfor %}
-{#            {% block content %}{% endblock %}#}
-            {% block extrascripts %}{% endblock %}
-        </div>
-{#--------------------------------------ROW 2 COLUMN 2-------------------------------------------------------------------------#}
-        <div class="col-md-9">
-{#--------------------------------------ROW 2.1-------------------------------------------------------------------------#}
-           <div>
-                <h2>Testing</h2>
-            </div>
-{#--------------------------------------ROW 2.2 COLUMN 1-------------------------------------------------------------------------#}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="content-section">
-{#                        <h3>Recipe list 1</h3>#}
-{#                        <p class='text-muted'>You can put any information here you'd like.#}
-                        <ul class="list-group">
-
-{#                        for loop for going through the DIsplay recipes#}
-                        {% for recipe in first_half_recipes  %}
-                            <li class="list-group-item list-group-item-light">
-
-                                <h4 class="test-button" href="">{{ recipe.title }}</h4>
-                                <h4>{{ recipe.ingredients }}</h4>
-                                <h4>{{ recipe.calories }} calories</h4>
-                            </li>
-                        {% endfor %}
-                        </ul>
-                        </p>
-                    </div>
+                    {% endfor %}
                 </div>
- {#--------------------------------------ROW 2.2 COLUMN 1-------------------------------------------------------------------------#}
-                <div class="col-md-6">
-                    <div class="content-section">
-{#                        <h3>Recipe list 2</h3>#}
-{#                        <p class='text-muted'>You can put any information here you'd like.#}
-                        <ul class="list-group">
+                    {#--------------------------------------ROW 2.2 COLUMN 1-------------------------------------------------------------------------#}
+                    {#                <div class="col-md-6">#}
+                    {#                    <div class="content-section">#}
+                    {#                        <h3>Recipe list 2</h3>#}
+                    {#                        <p class='text-muted'>You can put any information here you'd like.#}
+                    {#                        <ul class="list-group">#}
+                    {##}
+                    {#                        for loop for going through the DIsplay recipes#}
+                    {#                        {% for recipe in second_half_recipes  %}#}
+                    {#                            <li class="list-group-item list-group-item-light">#}
+                    {#                            on clicking the title, the slide in menu opens#}
+                    {#                                <h4 class="test-button" href="">{{ recipe.title }}</h4>#}
+                    {#                                <h4>{{ recipe.ingredients }}</h4>#}
+                    {#                                <h4>{{ recipe.calories }} calories</h4>#}
+                    {#                            </li>#}
+                    {#                        {% endfor %}#}
+                    {#                        </ul>#}
+                    {#                        </p>#}
+                    {#                    </div>#}
+                    {#                </div>#}
+                    {#--------------------------------------Sliding column-------------------------------------------------------------------------#}
 
-{#                        for loop for going through the DIsplay recipes#}
-                        {% for recipe in second_half_recipes  %}
-                            <li class="list-group-item list-group-item-light">
-{#                            on clicking the title, the slide in menu opens#}
-                                <h4 class="test-button" href="">{{ recipe.title }}</h4>
-                                <h4>{{ recipe.ingredients }}</h4>
-                                <h4>{{ recipe.calories }} calories</h4>
+                    <navbar class="sliding-navbar">
+
+                        <ul class="navbar--items">
+
+                            <li class="navbar--item">
+                                <button type="submit" class="btn test-button2">Column test close</button>
                             </li>
-                        {% endfor %}
+                            <li class="navbar--item">Item 2</li>
+                            <li class="navbar--item">Item 3</li>
                         </ul>
-                        </p>
-                    </div>
-                </div>
-{#--------------------------------------Sliding column-------------------------------------------------------------------------#}
-
- <navbar class="sliding-navbar">
-
-     <ul class="navbar--items">
-
-    <li class="navbar--item"><button type="submit" class="btn test-button2">Column test close</button></li>
-    <li class="navbar--item">Item 2</li>
-    <li class="navbar--item">Item 3</li>
-  </ul>
-</navbar>
+                    </navbar>
 
 
-
-
-
-
-
-</main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-    {% endblock %}
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+{% endblock %}
 
 
 

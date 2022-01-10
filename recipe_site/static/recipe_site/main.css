@@ -190,3 +190,32 @@ a.article-title:hover {
 .test-button2{
 
 }
+
+/*.test-style {*/
+/*     display: -webkit-box;*/
+/*  display: -webkit-flex;*/
+/*  display: -ms-flexbox;*/
+/*  display: flex;*/
+/*  overflow: hidden;*/
+/*  margin-bottom: 16px;*/
+/*  border-radius: 4px;*/
+/*  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.1);*/
+/*    height: 120px;*/
+/*}*/
+
+.test-style {
+    height: 250px;
+    width: 500px
+}
+
+.recipe-image {
+
+height: 50px;
+width: 50px;}
+
+img {
+  width: 100%;
+  height: auto;
+    max-width: 100%;
+ max-height: 100%;
+}

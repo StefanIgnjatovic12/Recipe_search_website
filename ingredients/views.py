@@ -23,7 +23,7 @@ def ingredients_list_view(request):
         api_key = '70b0e02384834d1db2b66fb35bd97984'
         params = {
             'apiKey': api_key,
-            'number': 1,
+            'number': 4,
             'ingredients': ing_list
         }
 
@@ -59,6 +59,7 @@ def ingredients_list_view(request):
                 'name': [d['name'] for d in recipe2['nutrition']['ingredients']]
 
             }]
+            print(sorted_query_data)
             # loops through the gdata and creates an f string with the amount, unit and name of the ingredients
             # corresponding to each recipe then appends them to a list
             for number in range(len(sorted_query_data)):
@@ -79,15 +80,15 @@ def ingredients_list_view(request):
                     ingredients=", ".join(lst)
                 )
                 i.save()
-                print(list(DisplayRecipe.objects.all()))
+
                 # clear the list after each loop corresponding to 1 recipe otherwise the ingredients for the next recipe are added to those of the firstru
 
                 lst.clear()
-
+        print(list(DisplayRecipe.objects.all()))
         context = {
             # fix only 2/4 recipes being displayed
-            'first_half_recipes': (list(DisplayRecipe.objects.all()))[0:1],
-            'second_half_recipes': (list(DisplayRecipe.objects.all()))[2:3],
+            'first_half_recipes': (list(DisplayRecipe.objects.all()))[0:2],
+            'second_half_recipes': (list(DisplayRecipe.objects.all()))[2:4],
             'ingredients': Ingredients.objects.all(),
             'groups': FoodGroups.objects.all()
         }
@@ -95,7 +96,8 @@ def ingredients_list_view(request):
     else:
         context = {
             'ingredients' : Ingredients.objects.all(),
-            'groups' : FoodGroups.objects.all()
+            'groups' : FoodGroups.objects.all(),
+            'recipes': DisplayRecipe.objects.all()
         }
 
         return render(request, 'ingredients/test.html', context)
@@ -109,7 +111,7 @@ def post(request):
     if request.POST.get('reload') == 'true':
         print('detected reload')
         SelectedIngredients.objects.all().delete()
-        DisplayRecipe.objects.all().delete()
+        # DisplayRecipe.objects.all().delete()
         print(SelectedIngredients.objects.all())
 
     elif request.POST.get('testvalue') == 'check':
