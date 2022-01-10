@@ -21,13 +21,9 @@ $(document).off().on('click', '.empty', function (e) {
     })
 })
 
-// for submit button to display recipe on same page
-$(document).on('click', '.btn-primary', function (e) {
-    e.preventDefault();
 
-})
 
-function testFunction() {
+function detectReload() {
     $.ajax({
         type: 'POST',
         url: 'http://127.0.0.1:8000/test/select/',
@@ -72,4 +68,16 @@ $(document).on('click', '.arrow', function (e) {
     // e.preventDefault();
 
 })
+
+//Sliding column
+$(function(){
+    $('.test-button').click(function(){
+        $('.sliding-navbar').toggleClass('sliding-navbar--open');
+    });
+
+    $('.test-button2').click(function(){
+        $('.sliding-navbar').toggleClass('sliding-navbar--open');
+
+    })
+});
 

@@ -153,3 +153,40 @@ a.article-title:hover {
 .test {
 
 }
+
+.sliding-navbar{
+    position: absolute;
+    top:0;
+    right:-400px;
+    height: 100vh;
+    width: 400px;
+    background: #333;
+    transition: right 0.3s ease-in-out;
+    z-index: 300;
+}
+.sliding-navbar--open{
+   right: 0px;
+}
+
+.navbar--items{
+    list-style-type: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.navbar--item{
+    margin: 20px;
+    letter-spacing: 1px;
+    color: white;
+    font-family:sans-serif;
+    text-transform: uppercase;
+}
+
+.test-button{
+
+}
+
+.test-button2{
+
+}

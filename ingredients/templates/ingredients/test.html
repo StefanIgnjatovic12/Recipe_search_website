@@ -23,10 +23,14 @@
             {% endif %}
 
 {#        search button for recipes, need to add an onclick so that the DisplayObjects get deleted when its clicked#}
-        <button href="{% url 'apitest' %}" type="submit" class="btn btn-primary">Search</button>
+{#        <button onclick="location.href='{% url 'test' %}'" name="mybtn" type="submit" class="btn btn-primary">Search</button>#}
 
-
-
+            <form action="{% url 'test' %}" method="get">
+              <input type="submit" class="btn btn-primary" value="Click" name="mybtn">
+           </form>
+{#        {% if post_search is True %}#}
+{#        <button type="submit" class="btn test-button">Column test open</button>#}
+{#        {% endif %}#}
             {% for fg in groups %}
 
                 <article class="media-left content-section">
@@ -63,15 +67,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="content-section">
-                        <h3>Recipe list 1</h3>
-                        <p class='text-muted'>You can put any information here you'd like.
+{#                        <h3>Recipe list 1</h3>#}
+{#                        <p class='text-muted'>You can put any information here you'd like.#}
                         <ul class="list-group">
 
 {#                        for loop for going through the DIsplay recipes#}
-                        {% for recipe in recipes  %}
+                        {% for recipe in first_half_recipes  %}
                             <li class="list-group-item list-group-item-light">
 
-                                <h4>{{ recipe.title }}</h4>
+                                <h4 class="test-button" href="">{{ recipe.title }}</h4>
                                 <h4>{{ recipe.ingredients }}</h4>
                                 <h4>{{ recipe.calories }} calories</h4>
                             </li>
@@ -80,51 +84,49 @@
                         </p>
                     </div>
                 </div>
- {#--------------------------------------ROW 2.2 COLUMN 1-------------------------------------------------------------------------#}               {#            Row 2.2 column 1#}
+ {#--------------------------------------ROW 2.2 COLUMN 1-------------------------------------------------------------------------#}
                 <div class="col-md-6">
                     <div class="content-section">
-                        <h3>Recipe list 2</h3>
-                        <p class='text-muted'>You can put any information here you'd like.
+{#                        <h3>Recipe list 2</h3>#}
+{#                        <p class='text-muted'>You can put any information here you'd like.#}
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">Recipe pic</li>
-                            <li class="list-group-item list-group-item-light">Recipe pic</li>
-                            <li class="list-group-item list-group-item-light">Recipe pic</li>
-                            <li class="list-group-item list-group-item-light">Recipe pic</li>
+
+{#                        for loop for going through the DIsplay recipes#}
+                        {% for recipe in second_half_recipes  %}
+                            <li class="list-group-item list-group-item-light">
+{#                            on clicking the title, the slide in menu opens#}
+                                <h4 class="test-button" href="">{{ recipe.title }}</h4>
+                                <h4>{{ recipe.ingredients }}</h4>
+                                <h4>{{ recipe.calories }} calories</h4>
+                            </li>
+                        {% endfor %}
                         </ul>
                         </p>
                     </div>
                 </div>
-            </div>
-        </div>
+{#--------------------------------------Sliding column-------------------------------------------------------------------------#}
+
+ <navbar class="sliding-navbar">
+
+     <ul class="navbar--items">
+
+    <li class="navbar--item"><button type="submit" class="btn test-button2">Column test close</button></li>
+    <li class="navbar--item">Item 2</li>
+    <li class="navbar--item">Item 3</li>
+  </ul>
+</navbar>
+
+
+
+
+
+
 
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     {% endblock %}
-{#      {% if is_paginated %}#}
-    {#if our current page (page_object) has a previous page#}
-{#          {% if page_obj.has_previous %}#}
-{#              <a class="btn btn-outline-info mb-4" href="?page=1">First</a>#}
-{#              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>#}
-{#          {% endif %}#}
-    {#we get the paginator object then use page_range to loop over all the pages#}
-{#          {% for num in page_obj.paginator.page_range %}#}
-{#              {% if page_obj.number == num %}#}
-{#                  <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>#}
-{#                  we get the previous 3 pages and the next 3 pages relative to the current page number and the number in the loop#}
-{#              {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}#}
-{#                  <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>#}
-{#              {% endif %}#}
-{#          {% endfor %}#}
-    {##}
-{#          {% if page_obj.has_next %}#}
-{#              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>#}
-{#              get the total number of pages so if there are 30 pages, 30 is the last page#}
-{#              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>#}
-{#          {% endif %}#}
-{#      {% endif %}#}
-{##}
-{#{% endblock content %}#}
+
 
 
