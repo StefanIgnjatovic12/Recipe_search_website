@@ -14,90 +14,37 @@ import json
 @csrf_exempt
 def ingredients_list_view(request):
     if request.GET.get('mybtn'):
-        ing_list = []
-        # iterate over the selected ingredients and add them to a list to pass to the API
-        for item in SelectedIngredients.objects.all():
-            ing_list.append(item.food)
-
         # API call code
-        api_key = '70b0e02384834d1db2b66fb35bd97984'
-        params = {
-            'apiKey': api_key,
-            'number': 4,
-            'ingredients': request.session['choices']
+        params={
+            'apiKey':'70b0e02384834d1db2b66fb35bd97984',
+
+            'includeIngredients': (',').join(request.session['choices']),
+            'addRecipeNutrition': True,
+            'fillIngredients': True,
+
+            'number': 10,
+            'sort': 'max-used-ingredients',
+            'sortDirection': 'desc'
+
         }
 
-        response = requests.get(url='https://api.spoonacular.com/recipes/findByIngredients', params=params)
+        response = requests.get(url='https://api.spoonacular.com/recipes/complexSearch', params=params)
         response.raise_for_status()
         print(response.elapsed.total_seconds())
-        recipes1 = json.loads(response.content)
 
-        # first API Call just gets ID and ingredient list, have to use the ID for a second API call to get detailed info
-        # Append all the IDs to a list and then use it as a parameter
-        id_list = []
-        for recipe in recipes1:
-            id_list.append(str(recipe['id']))
+        recipes = json.loads(response.content)
+        request.session['results'] = recipes['results']
 
-
-        params2 = {
-            'apiKey': api_key,
-            'ids': ",".join(id_list),
-            'includeNutrition': True
-        }
-        response2 = requests.get(url='https://api.spoonacular.com/recipes/informationBulk', params=params2)
-        response2.raise_for_status()
-        print(response2.elapsed.total_seconds())
-        recipes2 = json.loads(response2.content)
-
-        # generate recipes objects using the json data upon API call
-        lst = []
-        for recipe2 in recipes2:
-            # creates list of dictionaries that hold the data for each recipe the was returned
-            sorted_query_data = [{
-                'amount': [d['amount'] for d in recipe2['nutrition']['ingredients']],
-                'unit': [d['unit'] for d in recipe2['nutrition']['ingredients']],
-                'name': [d['name'] for d in recipe2['nutrition']['ingredients']]
-
-            }]
-            print(sorted_query_data)
-            # loops through the gdata and creates an f string with the amount, unit and name of the ingredients
-            # corresponding to each recipe then appends them to a list
-            for number in range(len(sorted_query_data)):
-                for n in range(len(sorted_query_data[number]['amount'])):
-                    lst.append(
-                        f"{sorted_query_data[number]['amount'][n]} {sorted_query_data[number]['unit'][n]} of {sorted_query_data[number]['name'][n]}")
-                i = DisplayRecipe.objects.create(
-                    title=recipe2['title'],
-                    link=recipe2['sourceUrl'],
-                    img=recipe2['image'],
-                    calories=recipe2['nutrition']['nutrients'][0]['amount'],
-                    fat=recipe2['nutrition']['nutrients'][1]['amount'],
-                    saturated_fat=recipe2['nutrition']['nutrients'][2]['amount'],
-                    carbs=recipe2['nutrition']['nutrients'][3]['amount'],
-                    protein=recipe2['nutrition']['nutrients'][8]['amount'],
-                    sodium=recipe2['nutrition']['nutrients'][7]['amount'],
-                    sugar=recipe2['nutrition']['nutrients'][5]['amount'],
-                    ingredients=", ".join(lst)
-                )
-                i.save()
-
-                # clear the list after each loop corresponding to 1 recipe otherwise the ingredients for the next recipe are added to those of the firstru
-
-                lst.clear()
-        print(list(DisplayRecipe.objects.all()))
         context = {
-            # fix only 2/4 recipes being displayed
-            'first_half_recipes': (list(DisplayRecipe.objects.all()))[0:2],
-            'second_half_recipes': (list(DisplayRecipe.objects.all()))[2:4],
+            'recipes': request.session['results'],
             'ingredients': Ingredients.objects.all(),
             'groups': FoodGroups.objects.all()
         }
-
     else:
         context = {
             'ingredients' : Ingredients.objects.all(),
             'groups' : FoodGroups.objects.all(),
-            'recipes': DisplayRecipe.objects.all()
+
         }
 
         return render(request, 'ingredients/test.html', context)
@@ -109,11 +56,15 @@ def post(request):
     if request.POST.get('reload') == 'true':
         print('detected reload')
         try:
-            del request.session['choices']
+            # del request.session['choices']
+            # del request.session['results']
+            request.session.modified = True
+            print('deleted')
         except KeyError:
             pass
 
-    if request.POST.get('testvalue') == 'check':
+
+    elif request.POST.get('testvalue') == 'check':
         id = request.POST.get('value')
 
         if request.POST.get('button_value') == 'green':
@@ -131,6 +82,8 @@ def post(request):
             request.session['choices'] = selected_ingredients
 
             print(selected_ingredients)
+
+
         # try:
         #     check = SelectedIngredients.objects.get(food=id)
         # except ObjectDoesNotExist:
