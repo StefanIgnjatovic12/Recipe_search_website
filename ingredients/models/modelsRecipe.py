@@ -1,6 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class AbstractRecipeModel(models.Model):
+class FavoriteRecipe (models.Model):
     title = models.TextField(max_length=500)
     ingredients = models.TextField(max_length=500)
     link = models.URLField()
@@ -13,13 +14,7 @@ class AbstractRecipeModel(models.Model):
     sodium = models.TextField(max_length=500)
     saturated_fat = models.TextField(max_length=500)
     sugar = models.TextField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
-    class Meta:
-        abstract = True
-
-class DisplayRecipe (AbstractRecipeModel):
-    pass
-class FavoriteRecipe (AbstractRecipeModel):
-    # add many to one with logged in user class
-    pass
-
+    def __str__(self):
+        return str(self.title)

@@ -5,19 +5,19 @@
 $(document).off().on('click', '.empty', function (e) {
     $(this).toggleClass('select-button-gray select-button-green')
     e.preventDefault();
-    var button_check
+    var button_color
     if ($(this).hasClass('select-button-gray')) {
-        button_check = 'gray'
+        button_color = 'gray'
     } else if ($(this).hasClass('select-button-green')) {
-        button_check = 'green'
+        button_color = 'green'
     }
     $.ajax({
         type: 'POST',
         url: 'http://127.0.0.1:8000/test/select/',
         data: {
             value: $(this).val(),
-            testvalue: 'check',
-            button_value: button_check,
+            button_state: 'clicked',
+            button_color: button_color,
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 
         },
@@ -79,12 +79,28 @@ $(document).on('click', '.arrow', function (e) {
 //Sliding column
 $(function(){
     $('.test-button').click(function(){
-        $('.sliding-navbar').toggleClass('sliding-navbar--open');
+        $('.sliding-navbar').toggleClass('sliding-navbar--open hide');
     });
 
-    $('.test-button2').click(function(){
-        $('.sliding-navbar').toggleClass('sliding-navbar--open');
 
-    })
 });
+//on clicking the favorite button, the forloop counter value will be transmitted
+//the value corresponds to the index of the recipe within the dictionary passed into sessions
+$(document).on('click', '.counter', function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: 'http://127.0.0.1:8000/test/select/',
+        data: {
+            detector: 'detected',
+            recipe_id: $(this).val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+
+        },
+        success: function () {
+            console.log("recipe ID sent");
+
+        },
+    })
+})
 
