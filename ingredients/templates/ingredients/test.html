@@ -11,9 +11,9 @@
 
     {#--------------------------------------ROW2-------------------------------------------------------------------------#}
     <main role="main" class="container-fluid">
-        <div class="row">
+        <div class="row-fluid">
             {#--------------------------------------ROW 2 COLUMN 1 > INGREDIENTS FOR LOOP-------------------------------------------------------------------------#}
-            <div class="col-md-3 ">
+            <div class="col-md-3" id="column1">
                 {% if messages %}
                     {% for message in messages %}
                         <div class="alert alert-{{ message.tags }}">
@@ -26,10 +26,10 @@
                 {#        <button onclick="location.href='{% url 'test' %}'" name="mybtn" type="submit" class="btn btn-primary">Search</button>#}
 
                 <form action="{% url 'test' %}" method="get">
-                    <input type="submit" class="btn btn-primary" value="Click" name="mybtn">
+                    <input type="submit" class="btn btn-primary" name="mybtn">
                 </form>
                 {#        {% if post_search is True %}#}
-                {#        <button type="submit" class="btn test-button">Column test open</button>#}
+                        <button type="submit" class="btn test-button">Column test open</button>
                 {#        {% endif %}#}
                 {% for fg in groups %}
 
@@ -58,7 +58,7 @@
                 {% block extrascripts %}{% endblock %}
             </div>
             {#--------------------------------------ROW 2 COLUMN 2-------------------------------------------------------------------------#}
-            <div class="col-md-9">
+            <div class="col-md-9" id="column2">
                 {#--------------------------------------ROW 2.1-------------------------------------------------------------------------#}
                 {#--------------------------------------ROW 2.2 COLUMN 1-------------------------------------------------------------------------#}
 
@@ -84,39 +84,19 @@
                         </div>
                     {% endfor %}
                 </div>
-                {#--------------------------------------ROW 2.2 COLUMN 1-------------------------------------------------------------------------#}
-                {#                <div class="col-md-6">#}
-                {#                    <div class="content-section">#}
-                {#                        <h3>Recipe list 2</h3>#}
-                {#                        <p class='text-muted'>You can put any information here you'd like.#}
-                {#                        <ul class="list-group">#}
-                {##}
-                {#                        for loop for going through the DIsplay recipes#}
-                {#                        {% for recipe in second_half_recipes  %}#}
-                {#                            <li class="list-group-item list-group-item-light">#}
-                {#                            on clicking the title, the slide in menu opens#}
-                {#                                <h4 class="test-button" href="">{{ recipe.title }}</h4>#}
-                {#                                <h4>{{ recipe.ingredients }}</h4>#}
-                {#                                <h4>{{ recipe.calories }} calories</h4>#}
-                {#                            </li>#}
-                {#                        {% endfor %}#}
-                {#                        </ul>#}
-                {#                        </p>#}
-                {#                    </div>#}
-                {#                </div>#}
+
                 {#--------------------------------------Sliding column-------------------------------------------------------------------------#}
 
-                <navbar class="sliding-navbar">
+{#                <navbar class="sliding-navbar">#}
+{##}
+{#                    <div class="col-md-3">#}
+{#                        test#}
+{#                    </div>#}
+{#                </navbar>#}
 
-                    <ul class="navbar--items">
-
-                        <li class="navbar--item">
-                            <button type="submit" class="btn test-button2">Column test close</button>
-                        </li>
-                        <li class="navbar--item">Item 2</li>
-                        <li class="navbar--item">Item 3</li>
-                    </ul>
-                </navbar>
+                <div class="col-md-3 sliding-navbar">
+                    test
+                </div>
 
 
     </main>

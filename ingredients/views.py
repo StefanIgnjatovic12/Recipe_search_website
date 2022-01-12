@@ -22,7 +22,7 @@ def ingredients_list_view(request):
             'addRecipeNutrition': True,
             'fillIngredients': True,
 
-            'number': 10,
+            'number': 2,
             'sort': 'max-used-ingredients',
             'sortDirection': 'desc'
 
