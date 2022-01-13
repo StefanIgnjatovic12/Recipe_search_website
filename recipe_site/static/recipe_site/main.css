@@ -321,5 +321,15 @@ a.article-title:hover {
 }
 
 .icons {
-    padding: 10px 5px 20px 5px
+    padding: 10px 4px 20px 4px
+}
+
+.form-control:focus{
+    border-color: #cccccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.search-button{
+
 }

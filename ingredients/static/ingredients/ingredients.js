@@ -2,34 +2,35 @@
 //upon clicking the button the color changes to green and an object is created with the 'food' field
 //being populated by the button value. When the same button is clicked again the previously created object is deleted
 // if request method is post AND action is whatever, then clear > separate from current if statement
-$(document).off().on('click', '.empty', function (e) {
-    $(this).toggleClass('select-button-gray select-button-green')
-    e.preventDefault();
-    var button_color
-    if ($(this).hasClass('select-button-gray')) {
-        button_color = 'gray'
-    } else if ($(this).hasClass('select-button-green')) {
-        button_color = 'green'
-    }
-    $.ajax({
-        type: 'POST',
-        url: 'http://127.0.0.1:8000/test/select/',
-        data: {
-            value: $(this).val(),
-            button_state: 'clicked',
-            button_color: button_color,
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 
-        },
-        success: function () {
-            console.log("success");
+    $(document).off().on('click', '.empty', function (e) {
+        $(this).toggleClass('select-button-gray select-button-green')
+        e.preventDefault();
+        var button_color
+        if ($(this).hasClass('select-button-gray')) {
+            button_color = 'gray'
+        } else if ($(this).hasClass('select-button-green')) {
+            button_color = 'green'
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'http://127.0.0.1:8000/test/select/',
+            data: {
+                value: $(this).val(),
+                button_state: 'clicked',
+                button_color: button_color,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 
-        },
+            },
+            success: function () {
+                console.log("success");
+
+            },
+        })
     })
-})
 
 
-
+//function which detects if the page has been reloaded and notifies the backend
 function detectReload() {
     $.ajax({
         type: 'POST',
@@ -44,7 +45,8 @@ function detectReload() {
     })
 }
 
-
+//Function which is responsible for hiding and revealing the ingredient buttons;
+//adds the hide class after the 8th button and then inserts the show more button
 // ------------------------------------------------------------------------------------------------------------------------
 $(document).ready(function(){
   $( ".form-inline" ).each(function(){
@@ -72,18 +74,11 @@ $(document).on('click', '.arrow', function (e) {
     $(this).toggleClass('triangle_down triangle_up')
     $(this).closest('.media-body').find('.hidecontent').toggleClass('hide')
 
-    // e.preventDefault();
 
 })
 
-//Sliding column
-$(function(){
-    $('.test-button').click(function(){
-        $('.sliding-navbar').toggleClass('sliding-navbar--open hide');
-    });
 
 
-});
 //on clicking the favorite button, the forloop counter value will be transmitted
 //the value corresponds to the index of the recipe within the dictionary passed into sessions
 $(document).on('click', '.favorite', function (e) {
@@ -108,3 +103,33 @@ $(document).on('click', '.card-action', function (e) {
     $(this).toggleClass('card-color1 card-color2')
     e.preventDefault();
 })
+
+//get search value and use it to click button
+$(document).on('click', '.search-button', function (e){
+    var search_value = $('#search-bar').val()
+    $("[value*=" + search_value + "]").toggleClass('select-button-gray select-button-green')
+        e.preventDefault();
+        var button_color
+        if ($("[value*=" + search_value + "]").hasClass('select-button-gray')) {
+            button_color = 'gray'
+        } else if ($("[value*=" + search_value + "]").hasClass('select-button-green')) {
+            button_color = 'green'
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'http://127.0.0.1:8000/test/select/',
+            data: {
+                value: search_value,
+                button_state: 'clicked',
+                button_color: button_color,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+
+            },
+            success: function () {
+                console.log("testing search feature");
+
+
+            },
+        })
+})
+
