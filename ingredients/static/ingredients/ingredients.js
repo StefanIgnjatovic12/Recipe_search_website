@@ -107,12 +107,14 @@ $(document).on('click', '.card-action', function (e) {
 //get search value and use it to click button
 $(document).on('click', '.search-button', function (e){
     var search_value = $('#search-bar').val()
-    $("[value*=" + search_value + "]").toggleClass('select-button-gray select-button-green')
+    $('#search-bar').val('')
+    $("[value='" + search_value + "']").removeClass('select-button-gray')
+    $("[value='" + search_value + "']").addClass('select-button-green')
         e.preventDefault();
         var button_color
-        if ($("[value*=" + search_value + "]").hasClass('select-button-gray')) {
+        if ($("[value='" + search_value + "']").hasClass('select-button-gray')) {
             button_color = 'gray'
-        } else if ($("[value*=" + search_value + "]").hasClass('select-button-green')) {
+        } else if ($("[value='" + search_value + "']").hasClass('select-button-green')) {
             button_color = 'green'
         }
         $.ajax({

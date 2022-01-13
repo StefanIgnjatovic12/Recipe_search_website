@@ -58,7 +58,7 @@ def post(request):
         try:
             # not deleting choices means that if you click submit with nothing selected the search still goes through
             # not deleting results means that if you refresh the page you'll have the same recipes left
-            # del request.session['choices']
+            del request.session['choices']
             # del request.session['results']
             # request.session.modified = True
             print('deleted')
@@ -78,6 +78,7 @@ def post(request):
             request.session['choices'] = selected_ingredients
 
             print(selected_ingredients)
+            print('green')
         # checks if the button is gray ie unselected > if yes, removes the value/ingredient name
         # for that button from the choices list
         elif request.POST.get('button_color') == 'gray':
@@ -87,7 +88,7 @@ def post(request):
             request.session['choices'] = selected_ingredients
 
             print(selected_ingredients)
-
+            print('gray')
     # If the favorite button is clicked, the index of the recipe within the request.session['results']
     # is passed through; can then create an object based on these
     if request.POST.get('recipe_id') is not None:
