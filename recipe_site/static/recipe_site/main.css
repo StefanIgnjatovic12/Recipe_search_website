@@ -109,6 +109,25 @@ a.article-title:hover {
     text-decoration: none;
 }
 
+/*made show-more-button class so that the color wouldnt change on hover for the other buttons once selected*/
+.show-more-button {
+    border: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 15px;
+    background: #96c85e;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+.show-more-button:hover {
+        text-decoration: none;
+        background-color: #699834;
+        color: #fff;
+
+    }
 .empty {
     margin: 5px;
 }
@@ -226,10 +245,81 @@ a.article-title:hover {
     right:0px;
     overflow: scroll;}
 
-.counter {
+.favorite {
 
 }
+/*favorite button */
+.card-action {
+        position: relative;
+        float: right;
+        margin-top: -40px;
+        margin-right: 20px;
+        z-index: 2;
+        /*color: #E26D5C;*/
+        /*background: #fff;*/
+        border-radius: 100%;
+        padding: 15px;
+        font-size: 15px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+    }
 
-.forcollapse{
+.card-action:hover {
+        color: #fff;
+        background: #E26D5C;
 
+    }
+
+.card-color1 {
+   color: #E26D5C;
+    background: #fff;
+}
+
+.card-color2 {
+    color: #fff;
+    background: #E26D5C;
+
+}
+/*--------------------------------------*/
+/*see more button*/
+.card-button {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    border: none;
+    margin: auto;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-family: Arial;
+    font-size: 15px;
+    width: 50%;
+    background-color: #96c85e;
+    color: #fff;
+
+    }
+
+.card-button:hover {
+        text-decoration: none;
+        background-color: #699834;
+        color: #fff;
+
+    }
+
+
+.card-heading {
+    font-size: 18px;
+    font-weight: bold;
+    background: #fff;
+    padding: 10px 15px;
+    }
+
+.card-text {
+    padding: 10px 15px;
+    background: #fff;
+    font-size: 14px;
+    color: #636262;
+}
+
+.icons {
+    padding: 10px 5px 20px 5px
 }

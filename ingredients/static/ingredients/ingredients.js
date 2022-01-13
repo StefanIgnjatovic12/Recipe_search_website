@@ -49,7 +49,7 @@ function detectReload() {
 $(document).ready(function(){
   $( ".form-inline" ).each(function(){
       $(this).find(".empty:gt(8)" ).addClass('hide');
-      $(this).find(".empty").eq(9).after('<button class="select-button-green hidecontent">Show more</button>');//add a unique id to link
+      $(this).find(".empty").eq(9).after('<button class="show-more-button hidecontent">Show more</button>');//add a unique id to link
 
   });
 });
@@ -86,13 +86,12 @@ $(function(){
 });
 //on clicking the favorite button, the forloop counter value will be transmitted
 //the value corresponds to the index of the recipe within the dictionary passed into sessions
-$(document).on('click', '.counter', function (e) {
+$(document).on('click', '.favorite', function (e) {
     e.preventDefault();
     $.ajax({
         type: 'POST',
         url: 'http://127.0.0.1:8000/test/select/',
         data: {
-            detector: 'detected',
             recipe_id: $(this).val(),
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 
@@ -104,3 +103,8 @@ $(document).on('click', '.counter', function (e) {
     })
 })
 
+//toggle class when favorite button is clicked
+$(document).on('click', '.card-action', function (e) {
+    $(this).toggleClass('card-color1 card-color2')
+    e.preventDefault();
+})
