@@ -19,7 +19,7 @@ def recipe_search(request):
             'addRecipeNutrition': True,
             'fillIngredients': True,
             'addRecipeInformation': True,
-            'number': 2,
+            'number': 8,
             'sort': 'max-used-ingredients',
             'sortDirection': 'desc'
 

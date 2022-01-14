@@ -136,10 +136,21 @@ $(document).on('click', '.search-button', function (e){
 })
 
 //change the text of the see more button on individual recipes
-function toggleText() {
-    var x = document.getElementById("card-button");
-    if (x.innerText === 'Show full recipe') {
-        x.innerText = 'Hide full recipe'
-    }
-    else if(x.innerText === 'Hide full recipe') {
-        x.innerText = 'Show full recipe'}}
+//worked when using ID as selector, deosnt work with classname
+// function toggleText() {
+//     var x = document.getElementsByClassName("card-button");
+//     if (x.innerText === 'Show full recipe') {
+//         x.innerText = 'Hide full recipe'
+//     }
+//     else if(x.innerText === 'Hide full recipe') {
+//         x.innerText = 'Show full recipe'}
+// }
+//atempt to fix above
+// $(document).on('click', '.card-button', function (){
+//     var x = $(this)
+//     if (x.innerText === 'Show full recipe') {
+//         x.innerText = 'Hide full recipe'
+//     }
+//     else if(x.innerText === 'Hide full recipe') {
+//         x.innerText = 'Show full recipe'}
+// })

@@ -118,12 +118,6 @@
                                                 {% endif %}
                                             {% endfor %}
 
-                                            {% for dish_type in recipe.dishTypes %}
-                                                {% if recipe.dishTypes|length > 0 %}
-                                                    <h4 class="ingredients-header-card-text">Dish
-                                                        type: {{ dish_type }}</h4>
-                                                {% endif %}
-                                            {% endfor %}
                                         </div>
 
 
@@ -160,8 +154,8 @@
                                 </div>
 
 
-                                {#                            ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
-                                <button onclick="toggleText()" id="card-button" class="card-button" type="button"
+                                {#     onclick="toggleText()"                       ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
+                                <button   class="card-button" type="button"
                                         value="{{ forloop.counter0 }}"
                                         data-bs-toggle="collapse" data-bs-target="#card{{ forloop.counter0 }}"
                                         data-bs-parent="card{{ forloop.counter0 }}"
