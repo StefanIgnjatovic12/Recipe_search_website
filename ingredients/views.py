@@ -18,8 +18,8 @@ def recipe_search(request):
             'includeIngredients': ','.join(request.session['choices']),
             'addRecipeNutrition': True,
             'fillIngredients': True,
-
-            'number': 1,
+            'addRecipeInformation': True,
+            'number': 2,
             'sort': 'max-used-ingredients',
             'sortDirection': 'desc'
 
@@ -37,6 +37,7 @@ def recipe_search(request):
             'ingredients': Ingredients.objects.all(),
             'groups': FoodGroups.objects.all()
         }
+
     else:
         # if recipes is in here, you will see the recipes that are saved in the results
         context = {
@@ -61,7 +62,7 @@ def post(request):
             # not deleting results means that if you refresh the page you'll have the same recipes left
             # del request.session['choices']
             # del request.session['results']
-            # request.session.modified = True
+            request.session.modified = True
             print('deleted')
         except KeyError:
             pass
