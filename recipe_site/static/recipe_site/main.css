@@ -142,7 +142,7 @@ a.article-title:hover {
 
 .triangle_down {
   position: relative;
-  top: -48px;
+
   content: "";
   display: inline-block;
   width: 10px;
@@ -157,7 +157,7 @@ a.article-title:hover {
 }
  .triangle_up {
    position: relative;
-   top: -48px;
+   /*top: -48px;*/
    content: "";
    display: inline-block;
    width: 10px;
@@ -169,7 +169,11 @@ a.article-title:hover {
    margin-left: 0.5em;
  }
 
-.test {
+ .triangle-position{
+     top: -48px;
+ }
+
+.unhide {
 
 }
 
@@ -200,31 +204,6 @@ a.article-title:hover {
     color: white;
     font-family:sans-serif;
     text-transform: uppercase;
-}
-
-.test-button{
-
-}
-
-.test-button2{
-
-}
-
-/*.test-style {*/
-/*     display: -webkit-box;*/
-/*  display: -webkit-flex;*/
-/*  display: -ms-flexbox;*/
-/*  display: flex;*/
-/*  overflow: hidden;*/
-/*  margin-bottom: 16px;*/
-/*  border-radius: 4px;*/
-/*  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.1);*/
-/*    height: 120px;*/
-/*}*/
-
-.test-style {
-    height: 250px;
-    width: 500px
 }
 
 
@@ -319,9 +298,13 @@ a.article-title:hover {
     font-size: 14px;
     color: #636262;
 }
-
+.card-body {
+    padding: 10px
+}
 .icons {
-    padding: 10px 4px 20px 4px
+    padding: 10px 4px 20px 4px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .form-control:focus{
@@ -332,4 +315,22 @@ a.article-title:hover {
 
 .search-button{
 
+}
+.list-group{
+    margin-top: -35px;
+}
+.ingredients-list{
+    padding-top:5px;
+
+    font-size: 16px;
+}
+.
+.ingredients-header-card{
+    font-size: 20px;
+}
+
+.triangle-card{
+    margin:15px 0 0 330px;
+    bottom: 10px;
+    top:-48px
 }

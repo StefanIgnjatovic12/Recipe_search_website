@@ -60,7 +60,7 @@ $(document).ready(function(){
 $(document).on('click','.hidecontent',function(e){
   e.preventDefault();
   //removes the hide class from the 9 buttons
-  $(this).closest('.form-inline').find('.hide, .test').toggleClass('hide test');
+  $(this).closest('.form-inline').find('.hide, .unhide').toggleClass('hide unhide');
   $(this).closest('.media-body').find('.arrow').toggleClass('triangle_down triangle_up')
      //adds the hide class to the show more button
 	 $(this).addClass('hide');
@@ -70,7 +70,7 @@ $(document).on('click','.hidecontent',function(e){
 
 // changing arrow from up to down
 $(document).on('click', '.arrow', function (e) {
-    $(this).closest('.media-body').find('.hide, .test').not('.hidecontent').toggleClass('hide test');
+    $(this).closest('.media-body').find('.hide, .unhide').not('.hidecontent').toggleClass('hide test');
     $(this).toggleClass('triangle_down triangle_up')
     $(this).closest('.media-body').find('.hidecontent').toggleClass('hide')
 
@@ -80,7 +80,7 @@ $(document).on('click', '.arrow', function (e) {
 
 
 //on clicking the favorite button, the forloop counter value will be transmitted
-//the value corresponds to the index of the recipe within the dictionary passed into sessions
+//the value corresponds to the index of the recipe within the dictionary passed into sessions d14268
 $(document).on('click', '.favorite', function (e) {
     e.preventDefault();
     $.ajax({
@@ -135,3 +135,11 @@ $(document).on('click', '.search-button', function (e){
         })
 })
 
+//change the text of the see more button on individual recipes
+function toggleText() {
+    var x = document.getElementById("card-button");
+    if (x.innerText === 'Show full recipe') {
+        x.innerText = 'Hide full recipe'
+    }
+    else if(x.innerText === 'Hide full recipe') {
+        x.innerText = 'Show full recipe'}}

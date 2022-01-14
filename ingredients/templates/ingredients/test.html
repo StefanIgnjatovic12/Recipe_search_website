@@ -13,9 +13,9 @@
     <main role="main" class="container-fluid">
         <div class="row-fluid">
 
-            {#--------------------------------------ROW 2 COLUMN 1 > INGREDIENTS FOR LOOP-------------------------------------------------------------------------#}
             <div class="col-md-3" id="column1">
                 <div class="row">
+{#                SEARCH BAR#}
                     <div class="input-group">
                         <input id="search-bar" type="search" class="form-control rounded" list="foodlist" placeholder="Search" aria-label="Search"
                                aria-describedby="search-addon"/>
@@ -37,9 +37,9 @@
                 {#                {% endif %}#}
 
 
-                {#                <form action="{% url 'test' %}" method="get">#}
-                {#                    <input type="submit" class="btn btn-primary" name="mybtn">#}
-                {#                </form>#}
+                                <form action="{% url 'test' %}" method="get">
+                                    <input type="submit" class="btn btn-primary" name="mybtn">
+                                </form>
 
 
                 {% for fg in groups %}
@@ -49,7 +49,7 @@
 
                             <div class="article-metadata">
                                 <h2 class="ingredients-header">{{ fg }}</h2>
-                                <span class="arrow triangle_down ml-auto"></span>
+                                <span class="triangle-position arrow triangle_down ml-auto"></span>
                             </div>
                             <div class="col-md-10 offset-md-1">
                                 <div class="form-inline" id="{{ fg.pk }}">
@@ -69,56 +69,65 @@
 
 
             </div>
-            {#--------------------------------------ROW 2 COLUMN 2-------------------------------------------------------------------------#}
             <div class="col-md-9" id="column2">
 
                 <div class="row row-cols-4">
-                    {#                    {% for recipe in recipes %}#}
-                    {#                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4 ">#}
+                    {% for recipe in recipes %}
+ {#-------------------------------------RECIPE CARD--------------------------------------------------------------------------#}
+
                     <div class="col">
                         <div class="card" style="margin-bottom:30px">
-                            <a href="#"><img class="card-img-top" src="https://i.imgur.com/IaToiBK.png" alt=""></a>
+                            <a href="#"><img class="card-img-top" src="{{ recipe.image }}" alt=""></a>
 
                             <div class="card-body">
                                 {#                                    favorite button#}
-                                <a title="Add recipe to favorites" class="card-action toggle-favorite-color card-color1"
+                                <a title="Add recipe to favorites" id="recipe id test" class="card-action toggle-favorite-color card-color1 favorite"
                                    href="#"><i
                                         class="fa fa-heart"></i></a>
                                 <div class=" class-heading">
-                                    Pasta with tomato sauce, parmigiano and garlic bread
+                                    {{ recipe.title }}
                                     <hr>
                                     {#                                        add the preparation time and serving size here#}
-                                    <i class="far fa-clock icons">15 minutes</i>
-                                    <i class="fa fa-users icons"> Serves 2</i>
-                                    <i class="fa fa-book icons"> 5 ingredients</i>
+                                    <i class="far fa-clock icons">{{ recipe.readyInMinutes }} minutes</i>
+                                    <i class="fa fa-users icons"> Serves {{ recipe.servings }}</i>
+                                    <i class="fa fa-book icons"> {{ recipe.usedIngredientCount|add:recipe.missedIngredientCount }} ingredients</i>
                                 </div>
-
 
                                 <div id="card{{ forloop.counter0 }}" class="collapse">
-                                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has
-                                        roots in a piece of classical Latin literature from 45 BC, making it
-                                        over 2000 years old. Richard McClintock, a Latin professor at
-                                        Hampden-Sydney College in Virginia, looked up one of the more obscure
-                                        Latin words, consectetur, from a Lorem Ipsum passage, and going through
-                                        the cites of the word in classical literature, discovered the
-                                        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
-                                        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
-                                        Cicero, written in 45 BC. This book is a treatise on the theory of
-                                        ethics, very popular during the Renaissance. The first line of Lorem
-                                        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
-                                        1.10.32.
-                                </div>
 
-                                <button class="card-button" type="button" value="{{ forloop.counter0 }}"
+                                    <h4 class="ingredients-header-card">Ingredients ({{ recipe.missedIngredientCount }} missing)</h4>
+
+                                    <span class="arrow triangle_down triangle-card" role="button" href=""></span>
+{#-------------------------------------LIST OF INGREDIENTS IN CARD--------------------------------------------------------------------------#}
+                                <ul class="list-group">
+                                    <div></div>
+                                    {% for x in recipe.nutrition.ingredients  %}
+                                        <li class="ingredients-list">{{ x.amount }} {{ x.unit }} of {{ x.name }}
+                                            <span style="color: #699834;">
+                                                <i class="fas fa-check-square"></i>
+                                            </span>
+                                        </li>
+                                {% endfor %}
+
+                                {% for x in recipe.missedIngredients %}
+                                 <li class="ingredients-list">{{ x.amount }} {{ x.unit }} of {{ x.name }}
+                                            <span style="color: #ff0000;">
+                                                <i class="fas fa-times"></i>
+                                            </span>
+                                        </li>
+                                {% endfor %}
+                                </ul>
+                                </div>
+{#                            ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
+                                <button onclick="toggleText()" id="card-button" class="card-button" type="button" value="{{ forloop.counter0 }}"
                                         data-bs-toggle="collapse" data-bs-target="#card{{ forloop.counter0 }}"
-                                        aria-expanded="false" aria-controls="card{{ forloop.counter0 }}">See
-                                    full recipe
+                                        aria-expanded="false" aria-controls="card{{ forloop.counter0 }}">Show full recipe
                                 </button>
 
                             </div>
                         </div>
                     </div>
-                    {#                    {% endfor %}#}
+                                        {% endfor %}
                 </div>
             </div>
         </div>

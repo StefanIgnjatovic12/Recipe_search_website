@@ -19,7 +19,7 @@ def recipe_search(request):
             'addRecipeNutrition': True,
             'fillIngredients': True,
 
-            'number': 8,
+            'number': 1,
             'sort': 'max-used-ingredients',
             'sortDirection': 'desc'
 
@@ -38,8 +38,9 @@ def recipe_search(request):
             'groups': FoodGroups.objects.all()
         }
     else:
+        # if recipes is in here, you will see the recipes that are saved in the results
         context = {
-            # 'recipes': request.session['results'],
+            'recipes': request.session['results'],
             'ingredients': Ingredients.objects.all(),
             'groups': FoodGroups.objects.all(),
 
@@ -58,7 +59,7 @@ def post(request):
         try:
             # not deleting choices means that if you click submit with nothing selected the search still goes through
             # not deleting results means that if you refresh the page you'll have the same recipes left
-            del request.session['choices']
+            # del request.session['choices']
             # del request.session['results']
             # request.session.modified = True
             print('deleted')
@@ -91,14 +92,15 @@ def post(request):
             print('gray')
     # If the favorite button is clicked, the index of the recipe within the request.session['results']
     # is passed through; can then create an object based on these
+    # TEST AGAIN
     if request.POST.get('recipe_id') is not None:
         print('received counter_button click')
         recipe_id = request.POST.get('recipe_id')
         print(recipe_id)
-        obj = FavoriteRecipe()
-        obj.title = request.session['results'][int(recipe_id)]['title']
-        obj.user = request.user
-        obj.save()
+        # obj = FavoriteRecipe()
+        # obj.title = request.session['results'][int(recipe_id)]['title']
+        # obj.user = request.user
+        # obj.save()
 
 
     return JsonResponse({'test': 'test'})
