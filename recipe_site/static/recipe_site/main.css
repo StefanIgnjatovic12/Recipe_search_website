@@ -232,8 +232,8 @@ a.article-title:hover {
 .card-action {
         position: relative;
         float: right;
-        margin-top: -40px;
-        margin-right: 20px;
+        margin-top: -80px;
+        margin-right: 10px;
         z-index: 2;
         /*color: #E26D5C;*/
         /*background: #fff;*/
@@ -304,7 +304,7 @@ a.article-title:hover {
 }
 .icons {
     padding: 10px 3px 20px 3px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
 }
 
@@ -328,8 +328,13 @@ a.article-title:hover {
 
 .ingredients-header-card-text{
     font-size: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
-
+.ingredients-header-card-text2{
+    font-size: 20px;
+}
 .triangle-card{
     margin:15px 0 0 330px;
     bottom: 10px;
@@ -340,3 +345,6 @@ a.article-title:hover {
     padding-bottom: 10px;
 }
 
+.card {
+    max-height:100%
+}

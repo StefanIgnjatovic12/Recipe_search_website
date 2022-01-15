@@ -154,8 +154,8 @@
                                 </div>
 
 
-                                {#     onclick="toggleText()"                       ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
-                                <button   class="card-button" type="button"
+                                {#     "                       ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
+                                <button onclick="toggleText(this)" class="card-button" type="button"
                                         value="{{ forloop.counter0 }}"
                                         data-bs-toggle="collapse" data-bs-target="#card{{ forloop.counter0 }}"
                                         data-bs-parent="card{{ forloop.counter0 }}"

@@ -6,7 +6,7 @@
     $(document).off().on('click', '.empty', function (e) {
         $(this).toggleClass('select-button-gray select-button-green')
         e.preventDefault();
-        var button_color
+        let button_color
         if ($(this).hasClass('select-button-gray')) {
             button_color = 'gray'
         } else if ($(this).hasClass('select-button-green')) {
@@ -106,12 +106,12 @@ $(document).on('click', '.card-action', function (e) {
 
 //get search value and use it to click button
 $(document).on('click', '.search-button', function (e){
-    var search_value = $('#search-bar').val()
+    let search_value = $('#search-bar').val()
     $('#search-bar').val('')
     $("[value='" + search_value + "']").removeClass('select-button-gray')
     $("[value='" + search_value + "']").addClass('select-button-green')
         e.preventDefault();
-        var button_color
+        let button_color
         if ($("[value='" + search_value + "']").hasClass('select-button-gray')) {
             button_color = 'gray'
         } else if ($("[value='" + search_value + "']").hasClass('select-button-green')) {
@@ -135,22 +135,15 @@ $(document).on('click', '.search-button', function (e){
         })
 })
 
-//change the text of the see more button on individual recipes
-//worked when using ID as selector, deosnt work with classname
-// function toggleText() {
-//     var x = document.getElementsByClassName("card-button");
-//     if (x.innerText === 'Show full recipe') {
-//         x.innerText = 'Hide full recipe'
-//     }
-//     else if(x.innerText === 'Hide full recipe') {
-//         x.innerText = 'Show full recipe'}
-// }
-//atempt to fix above
-// $(document).on('click', '.card-button', function (){
-//     var x = $(this)
-//     if (x.innerText === 'Show full recipe') {
-//         x.innerText = 'Hide full recipe'
-//     }
-//     else if(x.innerText === 'Hide full recipe') {
-//         x.innerText = 'Show full recipe'}
-// })
+//function which changes show full recipe button text and adjusts the way the header text is presented depending on if the card is expanded or not
+function toggleText(elem) {
+    $(elem).closest('.card').find('.ingredients-header-card-text, .ingredients-header-card-text2 ').toggleClass('ingredients-header-card-text ingredients-header-card-text2')
+
+  if (elem.innerText === 'Show full recipe') {
+        elem.innerText = 'Hide full recipe'
+    }
+    else if(elem.innerText === 'Hide full recipe') {
+       elem.innerText= 'Show full recipe'}
+
+
+}
