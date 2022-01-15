@@ -137,7 +137,7 @@ $(document).on('click', '.search-button', function (e){
 
 //function which changes show full recipe button text and adjusts the way the header text is presented depending on if the card is expanded or not
 function toggleText(elem) {
-    //toggles classes so the text-overflow is removed
+    $(elem).closest('.card').toggleClass('expand')
     $(elem).closest('.card').find('.ingredients-header-card-text, .ingredients-header-card-text2 ').toggleClass('ingredients-header-card-text ingredients-header-card-text2')
 
   //  swaps the text

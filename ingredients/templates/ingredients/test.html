@@ -49,7 +49,7 @@
 
                 {% for fg in groups %}
 
-                    <article class="media-left content-section">
+                    <article class="media-left content-section shadow">
                         <div class="media-body">
 
                             <div class="article-metadata">
@@ -75,12 +75,15 @@
 
             </div>
             <div class="col-md-9" id="column2">
-                <div class="row row-cols-4 ">
-                    {% for recipe in recipes %}
+{#            <div class="row">#}
+            <div class="row row-cols-4">
+            {% for recipe in recipes %}
+
                         {#-------------------------------------RECIPE CARD--------------------------------------------------------------------------#}
+{#                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">#}
 
                         <div class="col">
-                            <div class="card" style="margin-bottom:30px">
+                            <div class="card shadow">
                                 <img class="card-img-top" src="{{ recipe.image }}" alt="">
 
                                 <div class="card-body ">
@@ -90,7 +93,7 @@
                                        href="#"><i
                                             class="fa fa-heart"></i></a>
                                     <div class=" class-heading">
-                                      <h4 class="ingredients-header-card-text">{{ recipe.title }}</h4>
+                                        <h4 class="ingredients-header-card-text">{{ recipe.title }}</h4>
                                         <hr>
                                         {#                                        add the preparation time and serving size here#}
                                         <i class="far fa-clock icons">{{ recipe.readyInMinutes }} minutes</i>
@@ -103,11 +106,21 @@
                                         <div>
                                             <h4 class="ingredients-header-card-text">Nutrition per serving</h4>
                                             <ul class="list-group nutrition-list-group">
-                                                <li class="list-items">{{ recipe.nutrition.nutrients.0.amount }} calories</li>
-                                                <li class="list-items">{{ recipe.nutrition.nutrients.3.amount }}g of carbs</li>
-                                                <li class="list-items">{{ recipe.nutrition.nutrients.8.amount }}g of protein</li>
-                                                <li class="list-items">{{ recipe.nutrition.nutrients.1.amount }}g of fat</li>
-                                                <li class="list-items">{{ recipe.nutrition.nutrients.5.amount }}g of sugar</li>
+                                                <li class="list-items">{{ recipe.nutrition.nutrients.0.amount }}
+                                                    calories
+                                                </li>
+                                                <li class="list-items">{{ recipe.nutrition.nutrients.3.amount }}g of
+                                                    carbs
+                                                </li>
+                                                <li class="list-items">{{ recipe.nutrition.nutrients.8.amount }}g of
+                                                    protein
+                                                </li>
+                                                <li class="list-items">{{ recipe.nutrition.nutrients.1.amount }}g of
+                                                    fat
+                                                </li>
+                                                <li class="list-items">{{ recipe.nutrition.nutrients.5.amount }}g of
+                                                    sugar
+                                                </li>
                                             </ul>
                                         </div>
                                         <div>
@@ -133,7 +146,8 @@
                                         </div>
                                         {#-------------------------------------LIST OF INGREDIENTS IN CARD--------------------------------------------------------------------------#}
                                     </div>
-                                    <ul id="list{{ forloop.counter0 }}" class="list-group collapse ingredient-list-group">
+                                    <ul id="list{{ forloop.counter0 }}"
+                                        class="list-group collapse ingredient-list-group">
 
                                         {% for x in recipe.nutrition.ingredients %}
                                             <li class="list-items">{{ x.amount }} {{ x.unit }} of {{ x.name }}
@@ -165,11 +179,13 @@
 
                             </div>
                         </div>
-                {% endfor %}
-                    </div>
 
+                    {% endfor %}
+
+                </div>
             </div>
-        </div>
+            </div>
+
 
 
     </main>
