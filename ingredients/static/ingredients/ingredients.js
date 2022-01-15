@@ -147,8 +147,9 @@ function toggleText(elem) {
     //swaps the text and collapses the ingredient list upon clicking hide full recipe if it's expanded
     else if(elem.innerText === 'Hide full recipe') {
        elem.innerText= 'Show full recipe'
-      if ($(elem).closest('.card').find('.triangle-card').attr('aria-expanded') == 'true') {
-           $(elem).closest('.card').find('.triangle-card').trigger('click')
+
+        if ($(elem).closest('.card').find('.ingredient-list-group').hasClass('show')){
+          $(elem).closest('.card').find('.triangle-card').trigger('click')
       }
 
     }
