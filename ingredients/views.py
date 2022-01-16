@@ -8,7 +8,7 @@ import requests
 import json
 
 
-@csrf_exempt
+# @csrf_exempt
 def recipe_search(request):
     if request.GET.get('mybtn'):
         # API call code
@@ -19,7 +19,7 @@ def recipe_search(request):
             'addRecipeNutrition': True,
             'fillIngredients': True,
             'addRecipeInformation': True,
-            'number': 8,
+            'number': 1,
             'sort': 'max-used-ingredients',
             'sortDirection': 'desc'
 
@@ -41,17 +41,17 @@ def recipe_search(request):
     else:
         # if recipes is in here, you will see the recipes that are saved in the results
         context = {
-            'recipes': request.session['results'],
+            # 'recipes': request.session['results'],
             'ingredients': Ingredients.objects.all(),
             'groups': FoodGroups.objects.all(),
 
         }
 
-        return render(request, 'ingredients/test.html', context)
-    return render(request, 'ingredients/test.html', context)
+        return render(request, 'ingredients/home.html', context)
+    return render(request, 'ingredients/home.html', context)
 
 
-@csrf_exempt
+# @csrf_exempt
 def post(request):
     # checks AJAX to see if the page has been reloaded
     # if page has been reloaded, clear the results data from the session so the same recipes aren't shown again
@@ -60,8 +60,8 @@ def post(request):
         try:
             # not deleting choices means that if you click submit with nothing selected the search still goes through
             # not deleting results means that if you refresh the page you'll have the same recipes left
-            # del request.session['choices']
-            # del request.session['results']
+            del request.session['choices']
+            del request.session['results']
             request.session.modified = True
             print('deleted')
 
@@ -96,13 +96,40 @@ def post(request):
     # is passed through; can then create an object based on these
     # TEST AGAIN
     if request.POST.get('recipe_id') is not None:
+        # make it so that you cant favorite an already favorite
+        # make it so that you have to be logged in to favorite
         print('received counter_button click')
         recipe_id = request.POST.get('recipe_id')
         print(recipe_id)
-        # obj = FavoriteRecipe()
-        # obj.title = request.session['results'][int(recipe_id)]['title']
-        # obj.user = request.user
-        # obj.save()
+        obj = FavoriteRecipe.objects.create(user=request.user,
+                                            title= request.session['results'][int(recipe_id)]['title'],
+                                            ready_in = request.session['results'][int(recipe_id)]['readyInMinutes'],
+                                            link = request.session['results'][int(recipe_id)]['sourceUrl'],
+                                            img = request.session['results'][int(recipe_id)]['image'],
+                                            cuisines = request.session['results'][int(recipe_id)]['cuisines'],
+                                            used_ingredient_count=request.session['results'][int(recipe_id)][
+                                                'usedIngredientCount'],
+                                            used_ingredients=request.session['results'][int(recipe_id)][
+                                                'usedIngredients'],
+                                            missed_ingredients=request.session['results'][int(recipe_id)][
+                                                'missedIngredients'],
+                                            missed_ingredient_count=request.session['results'][int(recipe_id)][
+                                                'missedIngredientCount'],
+                                            servings=request.session['results'][int(recipe_id)][
+                                                'servings'],
+                                            calories = request.session['results'][int(recipe_id)]['nutrition']['nutrients'][0]['amount'],
+                                            fat = request.session['results'][int(recipe_id)]['nutrition']['nutrients'][1]['amount'],
+                                            carbs = request.session['results'][int(recipe_id)]['nutrition']['nutrients'][3]['amount'],
+                                            protein = request.session['results'][int(recipe_id)]['nutrition']['nutrients'][8]['amount'],
+                                            sodium = request.session['results'][int(recipe_id)]['nutrition']['nutrients'][7]['amount'],
+                                            sugar = request.session['results'][int(recipe_id)]['nutrition']['nutrients'][5]['amount']
+                                            )
 
+
+        obj.save()
 
     return JsonResponse({'test': 'test'})
+
+def favorites(request):
+    context={'favorites': FavoriteRecipe.objects.all()}
+    return render(request, 'ingredients/favorites.html', context)

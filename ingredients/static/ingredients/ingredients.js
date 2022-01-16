@@ -2,6 +2,22 @@
 //upon clicking the button the color changes to green and an object is created with the 'food' field
 //being populated by the button value. When the same button is clicked again the previously created object is deleted
 // if request method is post AND action is whatever, then clear > separate from current if statement
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 
     $(document).off().on('click', '.empty', function (e) {
         $(this).toggleClass('select-button-gray select-button-green')
@@ -14,12 +30,13 @@
         }
         $.ajax({
             type: 'POST',
-            url: 'http://127.0.0.1:8000/test/select/',
+            url: 'http://127.0.0.1:8000/select/',
+            // url: 'http://127.0.0.1:8000/test/http://127.0.0.1:8000/select/',
             data: {
                 value: $(this).val(),
                 button_state: 'clicked',
                 button_color: button_color,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                csrfmiddlewaretoken: getCookie('csrftoken')
 
             },
             success: function () {
@@ -34,10 +51,10 @@
 function detectReload() {
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:8000/test/select/',
+        url: 'http://127.0.0.1:8000/select/',
         data: {
             reload: 'true',
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            csrfmiddlewaretoken: getCookie('csrftoken')
         },
         success: function () {
             console.log('reload info trasmitted')
@@ -82,27 +99,24 @@ $(document).on('click', '.arrow', function (e) {
 //on clicking the favorite button, the forloop counter value will be transmitted
 //the value corresponds to the index of the recipe within the dictionary passed into sessions d14268
 $(document).on('click', '.favorite', function (e) {
+    $(this).toggleClass('card-color1 card-color2')
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:8000/test/select/',
+        url: 'http://127.0.0.1:8000/select/',
         data: {
-            recipe_id: $(this).val(),
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            recipe_id: $(this).attr('id'),
+            csrfmiddlewaretoken: getCookie('csrftoken')
 
         },
         success: function () {
             console.log("recipe ID sent");
 
+
         },
     })
 })
 
-//toggle class when favorite button is clicked
-$(document).on('click', '.card-action', function (e) {
-    $(this).toggleClass('card-color1 card-color2')
-    e.preventDefault();
-})
 
 //get search value and use it to click button
 $(document).on('click', '.search-button', function (e){
@@ -119,12 +133,12 @@ $(document).on('click', '.search-button', function (e){
         }
         $.ajax({
             type: 'POST',
-            url: 'http://127.0.0.1:8000/test/select/',
+            url: 'http://127.0.0.1:8000/select/',
             data: {
                 value: search_value,
                 button_state: 'clicked',
                 button_color: button_color,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                csrfmiddlewaretoken: getCookie('csrftoken')
 
             },
             success: function () {
