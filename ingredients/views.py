@@ -19,7 +19,7 @@ def recipe_search(request):
             'addRecipeNutrition': True,
             'fillIngredients': True,
             'addRecipeInformation': True,
-            'number': 1,
+            'number': 16,
             'sort': 'max-used-ingredients',
             'sortDirection': 'desc'
 
@@ -60,8 +60,8 @@ def post(request):
         try:
             # not deleting choices means that if you click submit with nothing selected the search still goes through
             # not deleting results means that if you refresh the page you'll have the same recipes left
-            del request.session['choices']
-            del request.session['results']
+            # del request.session['choices']
+            # del request.session['results']
             request.session.modified = True
             print('deleted')
 
@@ -92,12 +92,8 @@ def post(request):
 
             print(selected_ingredients)
             print('gray')
-    # If the favorite button is clicked, the index of the recipe within the request.session['results']
-    # is passed through; can then create an object based on these
-    # TEST AGAIN
-    if request.POST.get('recipe_id') is not None:
-        # make it so that you cant favorite an already favorite
-        # make it so that you have to be logged in to favorite
+
+    elif request.POST.get('recipe_id') is not None:
         print('received counter_button click')
         recipe_id = request.POST.get('recipe_id')
         print(recipe_id)
