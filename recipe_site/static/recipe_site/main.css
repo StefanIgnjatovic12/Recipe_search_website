@@ -91,9 +91,9 @@ a.article-title:hover {
     border-radius: 4px;
     font-family: Arial;
     color: #9395a0;
-    font-size: 15px;
+    font-size: 13px;
     background: #f0f2f4;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 10px 10px 10px;
     text-decoration: none;
 }
 
@@ -104,9 +104,9 @@ a.article-title:hover {
     border-radius: 4px;
     font-family: Arial;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 13px;
     background: #96c85e;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 10px 10px 10px;
     text-decoration: none;
 }
 
@@ -118,7 +118,7 @@ a.article-title:hover {
     border-radius: 4px;
     font-family: Arial;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 13px;
     background: #96c85e;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
@@ -266,7 +266,7 @@ a.article-title:hover {
     justify-content: center;
     padding: 10px 0;
     border: none;
-    margin: 0 93.767px 10px 93.767px  ;
+    margin: 0 25.14%   10px 25.14%  ;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -305,10 +305,12 @@ a.article-title:hover {
     padding: 10px
 }
 .icons {
-    padding: 10px 3px 20px 3px;
-    font-size: 15px;
+    padding: 10px 2px 20px 2px;
+    font-size: 13px;
     font-weight: bold;
+
 }
+
 
 .form-control:focus{
     border-color: #cccccc;
@@ -327,7 +329,9 @@ a.article-title:hover {
 
     font-size: 16px;
 }
-
+.class-heading {
+    text-align: center;
+}
 .ingredients-header-card-text{
     font-size: 20px;
     text-overflow: ellipsis;
@@ -338,15 +342,19 @@ a.article-title:hover {
     font-size: 20px;
 }
 .triangle-card{
-    margin:15px 0 0 330px;
+    margin:15px 0 0 85%;
     bottom: 10px;
     top:-48px
 }
 
 .nutrition-list-group {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 
+.grid-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
 .card {
     max-height:100%;
     margin-bottom: 30px;

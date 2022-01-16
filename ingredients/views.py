@@ -64,6 +64,7 @@ def post(request):
             # del request.session['results']
             request.session.modified = True
             print('deleted')
+
         except KeyError:
             pass
     # checks AJAX to see if a button has been clicked

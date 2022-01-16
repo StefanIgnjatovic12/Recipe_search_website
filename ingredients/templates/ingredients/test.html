@@ -13,7 +13,7 @@
     <main role="main" class="container-fluid">
         <div class="row-fluid">
 
-            <div class="col-md-3" id="column1">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" id="column1">
                 <div class="row">
                     {#                SEARCH BAR#}
                     <div class="input-group" style="margin-bottom: 3px">
@@ -61,7 +61,7 @@
 
                                     {% for individual_ingredient in fg.ing.all %}
 
-                                        <button id="{{ individual_ingredient.pk }}"
+                                        <button  id="{{ individual_ingredient.pk }}"
                                                 class="empty select-button-gray"
                                                 value="{{ individual_ingredient.food_name }}">{{ individual_ingredient.food_name }}</button>
                                     {% endfor %}
@@ -95,17 +95,18 @@
                                     <div class=" class-heading">
                                         <h4 class="ingredients-header-card-text">{{ recipe.title }}</h4>
                                         <hr>
-                                        {#                                        add the preparation time and serving size here#}
-                                        <i class="far fa-clock icons">{{ recipe.readyInMinutes }} minutes</i>
+
+                                        <i style="font-weight: bold" class="far fa-clock icons">{{ recipe.readyInMinutes }} minutes</i>
                                         <i class="fa fa-users icons"> Serves {{ recipe.servings }}</i>
-                                        <i class="fa fa-book icons"> {{ recipe.usedIngredientCount|add:recipe.missedIngredientCount }}
-                                            ingredients</i>
+                                        <i class="fa fa-book icons"> {{ recipe.usedIngredientCount|add:recipe.missedIngredientCount }} ingredients</i>
+
+
                                     </div>
 
                                     <div id="card{{ forloop.counter0 }}" class="collapse">
                                         <div>
                                             <h4 class="ingredients-header-card-text">Nutrition per serving</h4>
-                                            <ul class="list-group nutrition-list-group">
+                                            <ul class="list-group nutrition-list-group grid-list">
                                                 <li class="list-items">{{ recipe.nutrition.nutrients.0.amount }}
                                                     calories
                                                 </li>
@@ -121,13 +122,16 @@
                                                 <li class="list-items">{{ recipe.nutrition.nutrients.5.amount }}g of
                                                     sugar
                                                 </li>
+                                                <li class="list-items">{{ recipe.nutrition.nutrients.7.amount }}g of
+                                                    sodium
+                                                </li>
                                             </ul>
                                         </div>
                                         <div>
                                         {% if recipe.cuisines|length > 0 %}
                                         <h4 class="ingredients-header-card-text">Cuisine </h4>
 
-                                        <ul class="list-group nutrition-list-group">
+                                        <ul class="list-group nutrition-list-group grid-list">
                                             {% for cuisine in recipe.cuisines %}
                                                 <li class="list-items">{{ cuisine }}</li>
                                             {% endfor %}
@@ -151,8 +155,9 @@
                                     <ul id="list{{ forloop.counter0 }}"
                                         class="list-group collapse ingredient-list-group">
 
-                                        {% for x in recipe.nutrition.ingredients %}
-                                            <li class="list-items">{{ x.amount }} {{ x.unit }} of {{ x.name }}
+{#                                        {% for x in recipe.nutrition.ingredients %}#}
+                                            {% for x in recipe.usedIngredients %}
+                                            <li class="list-items">{{ x.amount }} {{ x.unit }}  {{ x.name }}
                                                 <span style="color: #699834;">
                                                 <i class="fas fa-check-square"></i>
                                             </span>
@@ -160,7 +165,7 @@
                                         {% endfor %}
 
                                         {% for x in recipe.missedIngredients %}
-                                            <li class="list-items">{{ x.amount }} {{ x.unit }} of {{ x.name }}
+                                            <li class="list-items">{{ x.amount|floatformat:2 }} {{ x.unit }}  {{ x.name }}
                                                 <span style="color: #ff0000;">
                                                 <i class="fas fa-times"></i>
                                             </span>
@@ -171,12 +176,12 @@
 
 
                                 {#     "                       ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
+
                                 <button onclick="toggleText(this)" class="card-button" type="button"
                                         value="{{ forloop.counter0 }}"
                                         data-bs-toggle="collapse" data-bs-target="#card{{ forloop.counter0 }}"
                                         data-bs-parent="card{{ forloop.counter0 }}"
-                                        aria-expanded="false" aria-controls="card{{ forloop.counter0 }}">Show full
-                                    recipe
+                                        aria-expanded="false" aria-controls="card{{ forloop.counter0 }}">See more
                                 </button>
 
                             </div>

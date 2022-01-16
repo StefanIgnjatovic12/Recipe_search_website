@@ -141,12 +141,12 @@ function toggleText(elem) {
     $(elem).closest('.card').find('.ingredients-header-card-text, .ingredients-header-card-text2 ').toggleClass('ingredients-header-card-text ingredients-header-card-text2')
 
   //  swaps the text
-  if (elem.innerText === 'Show full recipe') {
-        elem.innerText = 'Hide full recipe'
+  if (elem.innerText === 'See more') {
+        elem.innerText = 'See less'
     }
     //swaps the text and collapses the ingredient list upon clicking hide full recipe if it's expanded
-    else if(elem.innerText === 'Hide full recipe') {
-       elem.innerText= 'Show full recipe'
+    else if(elem.innerText === 'See less') {
+       elem.innerText= 'See more'
 
         if ($(elem).closest('.card').find('.ingredient-list-group').hasClass('show')){
           $(elem).closest('.card').find('.triangle-card').trigger('click')
