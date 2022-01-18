@@ -1,4 +1,4 @@
 from django import forms
 from .models import Ingredients
-class IngredientButton(forms.Form):
-    btn = forms.CharField()
+class SubmitButton(forms.Form):
+    mybtn = forms.CharField()

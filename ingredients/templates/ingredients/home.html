@@ -9,13 +9,12 @@
 
 
 
-    {#--------------------------------------ROW2-------------------------------------------------------------------------#}
     <main role="main" class="container-fluid">
         <div class="row-fluid">
-
+            {#----------------------------START OF INGREDIENTS COLUMN----------------------------#}
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4" id="column1">
-                <div class="row">
-                    {#                SEARCH BAR#}
+                <div class="row" >
+                    {# ----------------------------SEARCH BAR----------------------------#}
                     <div class="input-group" style="margin-bottom: 3px">
                         <input id="search-bar" type="search" class="form-control rounded" list="foodlist"
                                placeholder="Search" aria-label="Search"
@@ -28,10 +27,13 @@
                         <button type="button" class="show-more-button search-button" style="border-radius: 0 4px 4px 0">
                             Add ingredient
                         </button>
-                        <form action="{% url 'home' %}" method="get">
+                        {#----------------------------SEARCH BUTTON, USES HTMX TO PREVENT CONFIRM FORM RESUBMISSION----------------------------#}
+                        <form action="{% url 'search' %}" method="post">
+                            {% csrf_token %}
                             <input type="submit" class="show-more-button" style="margin-left: 5px" name="mybtn"
                                    value="Search">
                         </form>
+
                     </div>
                 </div>
                 {% if messages %}
@@ -41,6 +43,7 @@
                         </div>
                     {% endfor %}
                 {% endif %}
+                {#----------------------------LOOPING THROUGH FOOD CATEGORIES AND INGREDIENTS----------------------------            #}
                 {% for fg in groups %}
 
                     <article class="media-left content-section shadow">
@@ -68,6 +71,7 @@
 
 
             </div>
+            {#----------------------------SECOND COLUMN CONTAINING THE 4 COLUMNS CONTAINING THE RECIPE CARDS#}
             <div class="col-md-9" id="column2">
                 {#            <div class="row">#}
                 <div class="row row-cols-4">
@@ -75,13 +79,12 @@
 
                         {#-------------------------------------RECIPE CARD--------------------------------------------------------------------------#}
                         {#                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">#}
-
                         <div class="col">
                             <div class="card shadow">
                                 <img class="card-img-top" src="{{ recipe.image }}" alt="">
 
                                 <div class="card-body ">
-                                    {#                                    favorite button#}
+                                    {#---------------------------- FAVORITE BUTTON----------------------------#}
                                     {% if user.is_authenticated %}
                                         <a title="Add recipe to favorites" id="{{ forloop.counter0 }}"
                                            class="card-action toggle-favorite-color card-color1 favorite"
@@ -95,6 +98,7 @@
                                             <i class="fa fa-heart"></i>
                                         </a>
                                     {% endif %}
+                                    {#----------------------------RECIPE CARD NON-COLLAPSED / VISIBLE CONTENTS ----------------------------                                #}
                                     <div class=" class-heading">
                                         <h4 class="ingredients-header-card-text">{{ recipe.title }}</h4>
                                         <hr>
@@ -107,7 +111,7 @@
 
 
                                     </div>
-
+                                    {#----------------------------RECIPE CARD COLLAPSIBLE CONTENTS ----------------------------#}
                                     <div id="card{{ forloop.counter0 }}" class="collapse">
                                         <div>
                                             <h4 class="ingredients-header-card-text">Nutrition per serving</h4>
@@ -180,7 +184,7 @@
                                 </div>
 
 
-                                {#     "                       ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
+                                {#   ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
 
                                 <button onclick="toggleText(this)" class="card-button" type="button"
                                         value="{{ forloop.counter0 }}"
@@ -197,6 +201,7 @@
                 </div>
             </div>
         </div>
+        {#----------------------------BOOTSTRAP JS FOR POPOVERS----------------------------#}
         <script>
             var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
             var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
