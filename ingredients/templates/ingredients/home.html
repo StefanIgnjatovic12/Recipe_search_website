@@ -17,7 +17,7 @@
                     {# ----------------------------SEARCH BAR----------------------------#}
                     <div class="input-group" style="margin-bottom: 3px">
                         <input id="search-bar" type="search" class="form-control rounded" list="foodlist"
-                               placeholder="Search" aria-label="Search"
+                               placeholder="Add ingredients.." aria-label="Search"
                                aria-describedby="search-addon"/>
                         <datalist id="foodlist">
                             {% for ingredient in ingredients %}
@@ -28,12 +28,21 @@
                             Add ingredient
                         </button>
                         {#----------------------------SEARCH BUTTON, USES HTMX TO PREVENT CONFIRM FORM RESUBMISSION----------------------------#}
+{#                        {% if 'choices' not in request.session %}#}
+{#                        <form class="submit-form" action="{% url 'search' %}" method="post" onsubmit="return false;">#}
+{#                            {% csrf_token %}#}
+{#                            <input type="submit" class="show-more-button cunt" style="margin-left: 5px" name="mybtn"#}
+{#                                   value="Search" data-bs-toggle="popover"#}
+{#                                           data-bs-placement="right" data-bs-trigger="focus"#}
+{#                                           data-bs-content="Please select one or more ingredient">#}
+{#                        </form>#}
+{#                        {% else %}#}
                         <form action="{% url 'search' %}" method="post">
                             {% csrf_token %}
                             <input type="submit" class="show-more-button" style="margin-left: 5px" name="mybtn"
                                    value="Search">
                         </form>
-
+{#                        {% endif %}#}
                     </div>
                 </div>
                 {% if messages %}
@@ -88,8 +97,13 @@
                                     {% if user.is_authenticated %}
                                         <a title="Add recipe to favorites" id="{{ forloop.counter0 }}"
                                            class="card-action toggle-favorite-color card-color1 favorite"
-                                           href="#"><i
-                                                class="fa fa-heart"></i></a>
+                                           href="#">
+                                            <i class="fa fa-heart"></i>
+                                        </a>
+                                        <a title="See full recipe" class="card-action toggle-favorite-color card-color1" style="margin-right: 60px"
+                                           href="{{ recipe.sourceUrl }}" target="_blank">
+                                            <i class="fas fa-external-link-alt "></i>
+                                        </a>
                                     {% else %}
                                         <a tabindex="0" role="button" id="{{ forloop.counter0 }}"
                                            class="card-action card-color1" data-bs-toggle="popover"

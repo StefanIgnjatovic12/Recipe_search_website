@@ -1,7 +1,3 @@
-//on click function for the ingredient selector buttons
-//upon clicking the button the color changes to green and an object is created with the 'food' field
-//being populated by the button value. When the same button is clicked again the previously created object is deleted
-// if request method is post AND action is whatever, then clear > separate from current if statement
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -18,20 +14,25 @@ function getCookie(name) {
     return cookieValue;
 }
 
-
+//on click function for the ingredient selector buttons
+//upon clicking the button the color changes to green and an object is created with the 'food' field
+//being populated by the button value. When the same button is clicked again the previously created object is deleted
+// if request method is post AND action is whatever, then clear > separate from current if statement
     $(document).off().on('click', '.empty', function (e) {
         $(this).toggleClass('select-button-gray select-button-green')
+
         e.preventDefault();
         let button_color
         if ($(this).hasClass('select-button-gray')) {
             button_color = 'gray'
         } else if ($(this).hasClass('select-button-green')) {
-            button_color = 'green'
+            button_color = 'green';
+
         }
         $.ajax({
             type: 'POST',
-            url: 'http://127.0.0.1:8000/select/',
-            // url: 'http://127.0.0.1:8000/test/http://127.0.0.1:8000/select/',
+            url: 'select/',
+            // url: 'http://127.0.0.1:8000/test/select/',
             data: {
                 value: $(this).val(),
                 button_state: 'clicked',
@@ -51,7 +52,7 @@ function getCookie(name) {
 function detectReload() {
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:8000/select/',
+        url: 'select/',
         data: {
             reload: 'true',
             csrfmiddlewaretoken: getCookie('csrftoken')
@@ -92,18 +93,22 @@ $(document).on('click', '.arrow', function (e) {
     $(this).closest('.media-body').find('.hidecontent').toggleClass('hide')
 
 
-})
+});
 
 
 
 //on clicking the favorite button, the forloop counter value will be transmitted
-//the value corresponds to the index of the recipe within the dictionary passed into sessions d14268
+//the value corresponds to the index of the recipe within the dictionary passed into sessions
+//checks if the card has class unfavorite which means that its a card on the favorite page > in that case remove it from the page on click
 $(document).on('click', '.favorite', function (e) {
     $(this).toggleClass('card-color1 card-color2')
+    if ($(this).closest('.col').hasClass('unfavorite')){
+        $(this).closest('.col').remove();}
     e.preventDefault();
+
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:8000/select/',
+        url: '/select/',
         data: {
             recipe_id: $(this).attr('id'),
             csrfmiddlewaretoken: getCookie('csrftoken')
@@ -115,7 +120,7 @@ $(document).on('click', '.favorite', function (e) {
 
         },
     })
-})
+});
 
 
 //get search value and use it to click button
@@ -133,7 +138,7 @@ $(document).on('click', '.search-button', function (e){
         }
         $.ajax({
             type: 'POST',
-            url: 'http://127.0.0.1:8000/select/',
+            url: 'select/',
             data: {
                 value: search_value,
                 button_state: 'clicked',
@@ -147,7 +152,7 @@ $(document).on('click', '.search-button', function (e){
 
             },
         })
-})
+});
 
 //function which changes show full recipe button text and adjusts the way the header text is presented depending on if the card is expanded or not
 function toggleText(elem) {
@@ -170,4 +175,24 @@ function toggleText(elem) {
 
 
 }
+// same function as above but for cards on favorite page
+function toggleTextFavorite(elem) {
+    $(elem).closest('.card').toggleClass('favorite-button')
+    $(elem).closest('.card').find('.ingredients-header-card-text, .ingredients-header-card-text2 ').toggleClass('ingredients-header-card-text ingredients-header-card-text2')
 
+  //  swaps the text
+  if (elem.innerText === 'See more') {
+        elem.innerText = 'See less'
+    }
+    //swaps the text and collapses the ingredient list upon clicking hide full recipe if it's expanded
+    else if(elem.innerText === 'See less') {
+       elem.innerText= 'See more'
+
+        if ($(elem).closest('.card').find('.ingredient-list-group').hasClass('show')){
+          $(elem).closest('.card').find('.triangle-card').trigger('click')
+      }
+
+    }
+
+
+}
