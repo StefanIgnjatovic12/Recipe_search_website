@@ -23,7 +23,7 @@ def recipe_search(request):
                 'addRecipeNutrition': True,
                 'fillIngredients': True,
                 'addRecipeInformation': True,
-                'number': 10,
+                'number': 1,
                 'sort': 'min-missing-ingredients',
                 'sortDirection': 'desc'
 
@@ -34,7 +34,11 @@ def recipe_search(request):
             print(response.elapsed.total_seconds())
 
             recipes = json.loads(response.content)
+            # created 2 session for the same result because need it to stay available for favoriting but it gets deleted
+            # upon page reload which happens every time a search is done. so have another session data that is the same
+            # but doesnt get deleted until after the object is saved
             request.session['results'] = recipes['results']
+            request.session['favorite'] = recipes['results']
 
             return redirect('home')
 
@@ -51,11 +55,12 @@ def post(request):
             # not deleting choices means that if you click submit with nothing selected the search still goes through
             # not deleting results means that if you refresh the page you'll have the same recipes left
             del request.session['choices']
-            # del request.session['results']
+            del request.session['results']
             request.session.modified = True
             print('deleted')
 
         except KeyError:
+
             pass
     # checks AJAX to see if a button has been clicked
     #if it has, gets the value of the button which is the ingredient name
@@ -91,30 +96,34 @@ def post(request):
             FavoriteRecipe.objects.filter(id=recipe_id).delete()
         else:
             obj = FavoriteRecipe.objects.create(user=request.user,
-                                                title=request.session['results'][int(recipe_id)]['title'],
-                                                ready_in=request.session['results'][int(recipe_id)]['readyInMinutes'],
-                                                link=request.session['results'][int(recipe_id)]['sourceUrl'],
-                                                img=request.session['results'][int(recipe_id)]['image'],
-                                                cuisines=request.session['results'][int(recipe_id)]['cuisines'],
-                                                used_ingredient_count=request.session['results'][int(recipe_id)][
+                                                title=request.session['favorite'][int(recipe_id)]['title'],
+                                                ready_in=request.session['favorite'][int(recipe_id)]['readyInMinutes'],
+                                                link=request.session['favorite'][int(recipe_id)]['sourceUrl'],
+                                                img=request.session['favorite'][int(recipe_id)]['image'],
+                                                cuisines=request.session['favorite'][int(recipe_id)]['cuisines'],
+                                                used_ingredient_count=request.session['favorite'][int(recipe_id)][
                                                     'usedIngredientCount'],
-                                                used_ingredients=request.session['results'][int(recipe_id)][
+                                                used_ingredients=request.session['favorite'][int(recipe_id)][
                                                     'usedIngredients'],
-                                                missed_ingredients=request.session['results'][int(recipe_id)][
+                                                missed_ingredients=request.session['favorite'][int(recipe_id)][
                                                     'missedIngredients'],
-                                                missed_ingredient_count=request.session['results'][int(recipe_id)][
+                                                missed_ingredient_count=request.session['favorite'][int(recipe_id)][
                                                     'missedIngredientCount'],
-                                                servings=request.session['results'][int(recipe_id)][
+                                                servings=request.session['favorite'][int(recipe_id)][
                                                     'servings'],
-                                                calories=request.session['results'][int(recipe_id)]['nutrition']['nutrients'][0]['amount'],
-                                                fat=request.session['results'][int(recipe_id)]['nutrition']['nutrients'][1]['amount'],
-                                                carbs=request.session['results'][int(recipe_id)]['nutrition']['nutrients'][3]['amount'],
-                                                protein=request.session['results'][int(recipe_id)]['nutrition']['nutrients'][8]['amount'],
-                                                sodium=request.session['results'][int(recipe_id)]['nutrition']['nutrients'][7]['amount'],
-                                                sugar=request.session['results'][int(recipe_id)]['nutrition']['nutrients'][5]['amount']
+                                                calories=request.session['favorite'][int(recipe_id)]['nutrition']['nutrients'][0]['amount'],
+                                                fat=request.session['favorite'][int(recipe_id)]['nutrition']['nutrients'][1]['amount'],
+                                                carbs=request.session['favorite'][int(recipe_id)]['nutrition']['nutrients'][3]['amount'],
+                                                protein=request.session['favorite'][int(recipe_id)]['nutrition']['nutrients'][8]['amount'],
+                                                sodium=request.session['favorite'][int(recipe_id)]['nutrition']['nutrients'][7]['amount'],
+                                                sugar=request.session['favorite'][int(recipe_id)]['nutrition']['nutrients'][5]['amount']
                                                 )
 
             obj.save()
+            try:
+                del request.session['favorite']
+            except KeyError:
+                pass
 
     return JsonResponse({'test': 'test'})
 
@@ -148,3 +157,12 @@ def home(request):
 
 
 
+def choices_status(request):
+    try:
+        print(request.session['choices'])
+        print('full')
+        return JsonResponse({'choices': 'full'})
+
+    except KeyError:
+        print('empty')
+        return JsonResponse({'choices':'empty'})

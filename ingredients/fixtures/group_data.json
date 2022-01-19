@@ -1,0 +1,198 @@
+[
+  {
+    "pk": 1,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Vegetables"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Dairy and eggs"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Herbs and spices"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Baking"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Sugar and sweeteners"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Fruits and berries"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Oils and fats"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Cheeses"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Condiments and relishes"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Meats"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Nuts and seeds"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Dressings and vinegars"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Desserts and sweets"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Sauces and spreads and dips"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Wine and beer and spirits"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Bread and salty and snacks"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Soups and stews and stocks"
+    }
+  },
+  {
+    "pk": 18,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Poultry"
+    }
+  },
+  {
+    "pk": 19,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Grains and cereals"
+    }
+  },
+  {
+    "pk": 20,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Beans and peas and lentils"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Seasonings and spice and blends"
+    }
+  },
+  {
+    "pk": 22,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Beverages"
+    }
+  },
+  {
+    "pk": 23,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Pasta"
+    }
+  },
+  {
+    "pk": 24,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Dairy and free and and and meat and substitutes"
+    }
+  },
+  {
+    "pk": 25,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Fish"
+    }
+  },
+  {
+    "pk": 26,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Seafood and seaweed"
+    }
+  },
+  {
+    "pk": 27,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Dough and wrappers"
+    }
+  },
+  {
+    "pk": 28,
+    "model": "ingredients.foodgroups",
+    "fields": {
+      "group": "Supplements"
+    }
+  }
+]

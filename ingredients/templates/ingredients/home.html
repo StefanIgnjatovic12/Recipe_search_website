@@ -13,7 +13,7 @@
         <div class="row-fluid">
             {#----------------------------START OF INGREDIENTS COLUMN----------------------------#}
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4" id="column1">
-                <div class="row" >
+                <div class="row">
                     {# ----------------------------SEARCH BAR----------------------------#}
                     <div class="input-group" style="margin-bottom: 3px">
                         <input id="search-bar" type="search" class="form-control rounded" list="foodlist"
@@ -28,21 +28,15 @@
                             Add ingredient
                         </button>
                         {#----------------------------SEARCH BUTTON, USES HTMX TO PREVENT CONFIRM FORM RESUBMISSION----------------------------#}
-{#                        {% if 'choices' not in request.session %}#}
-{#                        <form class="submit-form" action="{% url 'search' %}" method="post" onsubmit="return false;">#}
-{#                            {% csrf_token %}#}
-{#                            <input type="submit" class="show-more-button cunt" style="margin-left: 5px" name="mybtn"#}
-{#                                   value="Search" data-bs-toggle="popover"#}
-{#                                           data-bs-placement="right" data-bs-trigger="focus"#}
-{#                                           data-bs-content="Please select one or more ingredient">#}
-{#                        </form>#}
-{#                        {% else %}#}
-                        <form action="{% url 'search' %}" method="post">
-                            {% csrf_token %}
-                            <input type="submit" class="show-more-button" style="margin-left: 5px" name="mybtn"
-                                   value="Search">
-                        </form>
-{#                        {% endif %}#}
+
+                            <form class="submit-form" action="{% url 'search' %}" method="post"
+                                  onsubmit="return false;">
+                                {% csrf_token %}
+                                <input type="submit" class="show-more-button pop" id="mybtn" style="margin-left: 5px" name="mybtn"
+                                       value="Search" data-bs-toggle="popover"
+                                       data-bs-placement="right" data-bs-trigger="focus"
+                                       data-bs-content="Please select one or more ingredient">
+                            </form>
                     </div>
                 </div>
                 {% if messages %}
@@ -100,7 +94,8 @@
                                            href="#">
                                             <i class="fa fa-heart"></i>
                                         </a>
-                                        <a title="See full recipe" class="card-action toggle-favorite-color card-color1" style="margin-right: 60px"
+                                        <a title="See full recipe" class="card-action toggle-favorite-color card-color1"
+                                           style="margin-right: 60px"
                                            href="{{ recipe.sourceUrl }}" target="_blank">
                                             <i class="fas fa-external-link-alt "></i>
                                         </a>

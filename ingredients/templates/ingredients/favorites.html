@@ -1,0 +1,135 @@
+{% extends "ingredients/base.html" %}
+{% load static %}
+{% block content %}
+
+    {% block scripts %}
+        {{ block.super }}
+    {% endblock %}
+
+    <main role="main" class="container-fluid">
+        <div class="row row-cols-5 favorites-row">
+            {% for recipe in favorites %}
+
+                {#-------------------------------------RECIPE CARD--------------------------------------------------------------------------#}
+                {#                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">#}
+
+                <div class="col unfavorite ">
+                    <div class="card shadow ">
+                        <img class="card-img-top" src="{{ recipe.img }}" alt="">
+
+                        <div class="card-body ">
+                            <a title="Remove recipe to favorites" id="{{ recipe.id }}"
+                               class="card-action toggle-favorite-color card-color1 favorite"
+                               href="#"><i class="fas fa-times fa-lg"></i></a>
+                            <a title="See full recipe" id="{{ recipe.id }}"
+                               class="card-action toggle-favorite-color card-color1" style="margin-right: 60px"
+                               href="{{ recipe.link }}" target="_blank"><i class="fas fa-external-link-alt "></i></a>
+
+                            <div class=" class-heading">
+                                <h4 class="ingredients-header-card-text">{{ recipe.title }}</h4>
+                                <hr>
+
+                                <i style="font-weight: bold" class="far fa-clock icons">{{ recipe.ready_in }}
+                                    minutes</i>
+                                <i class="fa fa-users icons"> Serves {{ recipe.servings }}</i>
+                                <i class="fa fa-book icons"> {{ recipe.used_ingredient_count|add:recipe.missed_ingredient_count }}
+                                    ingredients</i>
+
+
+                            </div>
+
+                            <div id="card{{ forloop.counter0 }}" class="collapse">
+                                <div>
+                                    <h4 class="ingredients-header-card-text">Nutrition per serving</h4>
+                                    <ul class="list-group nutrition-list-group grid-list">
+                                        <li class="list-items">{{ recipe.calories }}
+                                            calories
+                                        </li>
+                                        <li class="list-items">{{ recipe.carbs }}g of
+                                            carbs
+                                        </li>
+                                        <li class="list-items">{{ recipe.protein }}g of
+                                            protein
+                                        </li>
+                                        <li class="list-items">{{ recipe.fat }}g of
+                                            fat
+                                        </li>
+                                        <li class="list-items">{{ recipe.sugar }}g of
+                                            sugar
+                                        </li>
+                                        <li class="list-items">{{ recipe.sodium }}mg of
+                                            sodium
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    {% if recipe.cuisines|length == 1 %}
+                                        <h4 class="ingredients-header-card-text">Cuisine </h4>
+                                        <li class="list-items">{{ recipe.cuisines.0 }}</li>
+
+                                    {% elif recipe.cuisines|length > 1 %}
+                                        <h4 class="ingredients-header-card-text">Cuisine </h4>
+
+                                        <ul class="list-group nutrition-list-group grid-list">
+                                            {% for cuisine in recipe.cuisines %}
+                                                <li class="list-items">{{ cuisine }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+
+
+                                <div>
+                                    <h4 class="ingredients-header-card-text">Ingredients
+                                        ({{ recipe.missed_ingredient_count }} missing)</h4>
+                                    {#-------------------------------------ARROW THAT COLLAPSES THE LIST UPON CLICKING--------------------------------------------------------------------------#}
+
+                                    <span class="arrow triangle_down triangle-card" role="button"
+                                          data-bs-toggle="collapse" data-bs-target="#list{{ forloop.counter0 }}"
+                                          aria-expanded="true"
+                                          aria-controls="list{{ forloop.counter0 }}"></span>
+                                </div>
+                                {#-------------------------------------LIST OF INGREDIENTS IN CARD--------------------------------------------------------------------------#}
+                            </div>
+                            <ul id="list{{ forloop.counter0 }}"
+                                class="list-group collapse ingredient-list-group">
+
+                                {#                                        {% for x in recipe.nutrition.ingredients %}#}
+                                {% for x in recipe.used_ingredients %}
+                                    <li class="list-items">{{ x.amount }} {{ x.unit }} {{ x.name }}
+                                        <span style="color: #699834;">
+                                                <i class="fas fa-check-square"></i>
+                                            </span>
+                                    </li>
+                                {% endfor %}
+
+                                {% for x in recipe.missed_ingredients %}
+                                    <li class="list-items">{{ x.amount|floatformat:2 }} {{ x.unit }} {{ x.name }}
+                                        <span style="color: #ff0000;">
+                                                <i class="fas fa-times"></i>
+                                            </span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+
+                        {#     "                       ----------------------BUTTON THAT COLLAPSES ENTIRE CARDS--------------------------------------------------#}
+
+                        <button onclick="toggleTextFavorite(this)" class="card-button" type="button"
+                                value="{{ forloop.counter0 }}"
+                                data-bs-toggle="collapse" data-bs-target="#card{{ forloop.counter0 }}"
+                                data-bs-parent="card{{ forloop.counter0 }}"
+                                aria-expanded="false" aria-controls="card{{ forloop.counter0 }}">See more
+                        </button>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+
+    </main>
+{% endblock %}
