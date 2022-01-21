@@ -1,0 +1,5 @@
+- Make the width stay the same upon expanding buttons > currently only stays
+the same on 100% zoom
+- fix the absolute positioning of the arrow on the ingredient coumn
+- fix the favorite and link buttons on the cards, they dont scale down past a
+certain point
