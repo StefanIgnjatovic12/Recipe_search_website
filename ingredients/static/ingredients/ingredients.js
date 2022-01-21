@@ -1,3 +1,4 @@
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -14,11 +15,27 @@ function getCookie(name) {
     return cookieValue;
 }
 
+
+//function which adds/removes item to array depending on if an ingredient button has been selected/deselected
+//used for later function to determine if search should be submitted based on if at least 1 ingredient is selected
+function addOrRemove(array, value) {
+    var index = array.indexOf(value);
+
+    if (index === -1) {
+        array.push(value);
+    } else {
+        array.splice(index, 1);
+    }
+}
+var lst = []
+
 //on click function for the ingredient selector buttons
 //upon clicking the button the color changes to green and an object is created with the 'food' field
 //being populated by the button value. When the same button is clicked again the previously created object is deleted
 // if request method is post AND action is whatever, then clear > separate from current if statement
 $(document).off().on('click', '.empty', function (e) {
+    addOrRemove(lst, $(this).attr("id"))
+
     $(this).toggleClass('select-button-gray select-button-green')
 
     e.preventDefault();
@@ -46,31 +63,22 @@ $(document).off().on('click', '.empty', function (e) {
     })
 })
 
-$(document).on('click', '#mybtn', function () {
-    function ajaxCall() {
-        $.ajax({
-            headers: {csrfmiddlewaretoken: getCookie('csrftoken')},
-            type: 'GET',
-            dataType: 'json',
-            url: 'choicesstatus/',
-            data: {data},
-
-            success: function () {
-                console.log('data received')
-
-
-
-            },
+//
+$(document).on('click', '#mybtn', function (e){
+    var btn = $('#mybtn')[0]
+    if ($(lst).length === 0) {
+        $(btn).popover({
+            placement:'right',
+            trigger:'manual',
+            content:'Please select one or more ingredient'
         })
+       bootstrap.Popover.getInstance(btn).show()
+        e.preventDefault()
+        console.log('showed popover')
 
-        function check(data) {
-            if (data.choices == 'full') {
-                    $('.submit-form').removeAttr('onsubmit')
-                } else if ($('.submit-form').not('[onsubmit]')) {
-                    $.fn.ajaxCall()
-                    $('.submit-form').attr('onsubmit', 'return false;')
-                }
-        }
+    } else {
+        bootstrap.Popover.getInstance(btn).hide()
+        console.log('hid popover')
     }
 })
 
@@ -181,6 +189,8 @@ $(document).on('click', '.search-button', function (e) {
     })
 });
 
+
+
 //function which changes show full recipe button text and adjusts the way the header text is presented depending on if the card is expanded or not
 function toggleText(elem) {
     $(elem).closest('.card').toggleClass('expand')
@@ -188,10 +198,12 @@ function toggleText(elem) {
 
     //  swaps the text
     if (elem.innerText === 'See more') {
+        console.log('detected see more')
         elem.innerText = 'See less'
     }
     //swaps the text and collapses the ingredient list upon clicking hide full recipe if it's expanded
     else if (elem.innerText === 'See less') {
+        console.log('detected see less')
         elem.innerText = 'See more'
 
         if ($(elem).closest('.card').find('.ingredient-list-group').hasClass('show')) {
@@ -224,3 +236,4 @@ function toggleTextFavorite(elem) {
 
 
 }
+

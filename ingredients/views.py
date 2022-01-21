@@ -3,14 +3,17 @@ from django.http import JsonResponse
 from ingredients.models.modelsIngredients import Ingredients, FoodGroups
 from ingredients.models.modelsRecipe import FavoriteRecipe
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import user_passes_test
 
 import requests
 import json
 import os
 
 from .forms import SubmitButton
+
 # @csrf_exempt
 # When mybtn clicked, api is called and the results are saved to session
+# @user_passes_test(lambda u: u.is_superuser)
 def recipe_search(request):
     if request.POST.get('mybtn'):
 
@@ -23,7 +26,7 @@ def recipe_search(request):
                 'addRecipeNutrition': True,
                 'fillIngredients': True,
                 'addRecipeInformation': True,
-                'number': 1,
+                'number': 4,
                 'sort': 'min-missing-ingredients',
                 'sortDirection': 'desc'
 
@@ -46,6 +49,7 @@ def recipe_search(request):
 
 
 # @csrf_exempt
+
 def post(request):
     # checks AJAX to see if the page has been reloaded
     # if page has been reloaded, clear the results data from the session so the same recipes aren't shown again
@@ -55,12 +59,11 @@ def post(request):
             # not deleting choices means that if you click submit with nothing selected the search still goes through
             # not deleting results means that if you refresh the page you'll have the same recipes left
             del request.session['choices']
-            del request.session['results']
+            # del request.session['results']
             request.session.modified = True
             print('deleted')
 
         except KeyError:
-
             pass
     # checks AJAX to see if a button has been clicked
     #if it has, gets the value of the button which is the ingredient name

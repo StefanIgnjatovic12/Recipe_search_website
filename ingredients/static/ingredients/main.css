@@ -213,6 +213,7 @@ a.article-title:hover {
 
     height: calc(100% - 100px);
     position:fixed;
+    padding-left: 30px;
     top:100px;
     overflow: scroll;
     left:0;
@@ -221,6 +222,8 @@ a.article-title:hover {
 
     height: calc(100% - 100px);
     position:fixed;
+    padding-left: 30px;
+    padding-right: 30px;
     top:100px;
     right:0px;
     overflow: scroll;}
@@ -304,8 +307,8 @@ a.article-title:hover {
     padding: 10px
 }
 .icons {
-    padding: 10px 2px 20px 2px;
-    font-size: 13px;
+    padding: 10px 3px 20px 3px;
+    font-size: 12.5px;
     font-weight: bold;
 
 }
@@ -317,9 +320,7 @@ a.article-title:hover {
     box-shadow: none;
 }
 
-.search-button{
 
-}
 .ingredient-list-group{
     margin-top: -35px;
 }
@@ -330,6 +331,7 @@ a.article-title:hover {
 }
 .class-heading {
     text-align: center;
+
 }
 .ingredients-header-card-text{
     font-size: 20px;
@@ -359,22 +361,18 @@ a.article-title:hover {
     margin-bottom: 30px;
 }
 
-/*.card-body div.collapse {*/
-/*    position: absolute;*/
-/*    z-index: 1000;*/
-/*}*/
-
+/*need to fix the responsive scalling of the width on expansion*/
 .expand {
     position: absolute;
     z-index: 20;
-    width: 23.9%;
-    /*width: 426.7px;*/
+    width: 22.708333333%;
+
     max-height: 500%}
 
 .favorite-button {
     position: absolute;
     z-index: 20;
-    max-width: 16.65%;
+    width: 16.666666%;
     /*width: 426.7px;*/
     max-height: 500%
 }
@@ -389,3 +387,4 @@ a.article-title:hover {
 .shadow {
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.27);
 }
+

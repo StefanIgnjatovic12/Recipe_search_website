@@ -30,7 +30,7 @@
                                 <hr>
 
                                 <i style="font-weight: bold" class="far fa-clock icons">{{ recipe.ready_in }}
-                                    minutes</i>
+                                    min</i>
                                 <i class="fa fa-users icons"> Serves {{ recipe.servings }}</i>
                                 <i class="fa fa-book icons"> {{ recipe.used_ingredient_count|add:recipe.missed_ingredient_count }}
                                     ingredients</i>
@@ -119,7 +119,7 @@
                         <button onclick="toggleTextFavorite(this)" class="card-button" type="button"
                                 value="{{ forloop.counter0 }}"
                                 data-bs-toggle="collapse" data-bs-target="#card{{ forloop.counter0 }}"
-                                data-bs-parent="card{{ forloop.counter0 }}"
+                                data-bs-parent="#card{{ forloop.counter0 }}"
                                 aria-expanded="false" aria-controls="card{{ forloop.counter0 }}">See more
                         </button>
 

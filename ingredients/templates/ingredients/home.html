@@ -2,10 +2,6 @@
 {% load static %}
 {% block content %}
 
-    {% block scripts %}
-        {{ block.super }}
-    {% endblock %}
-
 
 
 
@@ -29,14 +25,13 @@
                         </button>
                         {#----------------------------SEARCH BUTTON, USES HTMX TO PREVENT CONFIRM FORM RESUBMISSION----------------------------#}
 
-                            <form class="submit-form" action="{% url 'search' %}" method="post"
-                                  onsubmit="return false;">
-                                {% csrf_token %}
-                                <input type="submit" class="show-more-button pop" id="mybtn" style="margin-left: 5px" name="mybtn"
-                                       value="Search" data-bs-toggle="popover"
-                                       data-bs-placement="right" data-bs-trigger="focus"
-                                       data-bs-content="Please select one or more ingredient">
-                            </form>
+
+                        <form class="submit-form" action="{% url 'search' %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" class="show-more-button pop"
+                                   id="mybtn" style="margin-left: 5px"
+                                   name="mybtn" value="Search">
+                        </form>
                     </div>
                 </div>
                 {% if messages %}
@@ -74,16 +69,17 @@
 
 
             </div>
+
             {#----------------------------SECOND COLUMN CONTAINING THE 4 COLUMNS CONTAINING THE RECIPE CARDS#}
-            <div class="col-md-9" id="column2">
-                {#            <div class="row">#}
+
+            <div class="col-lg-9 col-md-8 col-sm-6 mb-4" id="column2">
                 <div class="row row-cols-4">
                     {% for recipe in recipes %}
 
                         {#-------------------------------------RECIPE CARD--------------------------------------------------------------------------#}
                         {#                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">#}
                         <div class="col">
-                            <div class="card shadow">
+                            <div class="card shadow" >
                                 <img class="card-img-top" src="{{ recipe.image }}" alt="">
 
                                 <div class="card-body ">
@@ -113,7 +109,7 @@
                                         <hr>
 
                                         <i style="font-weight: bold"
-                                           class="far fa-clock icons">{{ recipe.readyInMinutes }} minutes</i>
+                                           class="far fa-clock icons"> {{ recipe.readyInMinutes }} min</i>
                                         <i class="fa fa-users icons"> Serves {{ recipe.servings }}</i>
                                         <i class="fa fa-book icons"> {{ recipe.usedIngredientCount|add:recipe.missedIngredientCount }}
                                             ingredients</i>
@@ -198,7 +194,7 @@
                                 <button onclick="toggleText(this)" class="card-button" type="button"
                                         value="{{ forloop.counter0 }}"
                                         data-bs-toggle="collapse" data-bs-target="#card{{ forloop.counter0 }}"
-                                        data-bs-parent="card{{ forloop.counter0 }}"
+                                        data-bs-parent="#card{{ forloop.counter0 }}"
                                         aria-expanded="false" aria-controls="card{{ forloop.counter0 }}">See more
                                 </button>
 
@@ -219,6 +215,7 @@
             var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
                 trigger: 'focus'
             })
+
         </script>
 
 
